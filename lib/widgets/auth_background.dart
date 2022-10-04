@@ -14,7 +14,7 @@ class AuthBackground extends StatelessWidget {
         children: [
           _PurpleBox(),
           HeaderIcon(),
-          //this.child,
+          this.child,
         ],
       ),
     );
