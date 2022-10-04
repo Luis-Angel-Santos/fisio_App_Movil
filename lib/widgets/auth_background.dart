@@ -25,16 +25,18 @@ class HeaderIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container(
-        width: double.infinity,
-        margin: EdgeInsets.only(top: 30),
-        child: Icon(
-          Icons.person_pin,
-          color: Colors.white,
-          size: 100,
-        ),
+        child: Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(top: 30),
+      child: Column(
+        children: [
+          SizedBox(
+              height: 140.0,
+              width: 140.0,
+              child: Image.asset('assets/Logo.png'))
+        ],
       ),
-    );
+    ));
   }
 }
 
