@@ -4,7 +4,7 @@ import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreenPacientes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 SizedBox(height: 10),
                 Text(
-                  'Login FISIO',
+                  'Login Pacientes',
                   style: Theme.of(context).textTheme.headline4,
                 ),
                 SizedBox(height: 20),
