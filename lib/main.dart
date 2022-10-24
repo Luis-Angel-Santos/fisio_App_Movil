@@ -12,7 +12,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'FISIO App',
         initialRoute: 'login',
-        routes: {'login': (_) => LoginScreen(), 'home': (_) => HomeScreen()},
+        routes: {
+          'login': (_) => LoginScreen(),
+          'home': (_) => HomeScreen(),
+          'paciente': (_) => PacienteScreen()
+        },
         theme: ThemeData.light().copyWith(
             scaffoldBackgroundColor: Colors.grey[300],
             appBarTheme: AppBarTheme(elevation: 0, color: Colors.indigo),
