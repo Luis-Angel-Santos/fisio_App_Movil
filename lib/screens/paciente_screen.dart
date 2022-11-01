@@ -79,11 +79,15 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
-                keyboardType: TextInputType.datetime,
                 decoration: InputDecorations.authInputDecoration(
-                  hintText: 'Ejemplo 24/10/2022',
-                  labelText: 'Fecha',
-                ),
+                    labelText: 'Apellidos:', hintText: 'Apellidos:'),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              TextFormField(
+                decoration: InputDecorations.authInputDecoration(
+                    labelText: 'Numero de telefono', hintText: 'Tel:'),
               ),
               SizedBox(
                 height: 30,
