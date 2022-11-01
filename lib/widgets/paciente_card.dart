@@ -1,6 +1,11 @@
+import 'package:fisio/models/models.dart';
 import 'package:flutter/material.dart';
 
 class PacienteCard extends StatelessWidget {
+  final Paciente paciente;
+
+  const PacienteCard({super.key, required this.paciente});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -13,11 +18,14 @@ class PacienteCard extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
-            _BackgroundImage(),
-            _PacienteDetails(),
+            _BackgroundImage(paciente.foto),
+            _PacienteDetails(
+                title: paciente.nombreDelPaciente,
+                app: paciente.apellidos,
+                subTitle: paciente.id!),
             Positioned(top: 0, right: 0, child: _DateTag()),
-            // TODO: mostrar de manera condicional
-            Positioned(top: 0, left: 0, child: _NotAvailable())
+            if (!paciente.available)
+              Positioned(top: 0, left: 0, child: _NotAvailable())
           ],
         ),
       ),
@@ -84,6 +92,13 @@ class _DateTag extends StatelessWidget {
 }
 
 class _PacienteDetails extends StatelessWidget {
+  final String title;
+  final String subTitle;
+  final String app;
+
+  const _PacienteDetails(
+      {required this.app, required this.title, required this.subTitle});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -91,19 +106,26 @@ class _PacienteDetails extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         width: double.infinity,
-        height: 70,
+        height: 90,
         decoration: _buildBoxDecoration(),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
-            'Paciente: Emanuel Rangel ',
+            title,
             style: TextStyle(
                 fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
-            maxLines: 2,
+            maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
           Text(
-            'Id del Paciente',
-            style: TextStyle(fontSize: 15, color: Colors.white),
+            app,
+            style: TextStyle(
+                fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
+          Text(
+            subTitle,
+            style: TextStyle(fontSize: 20, color: Colors.white),
             overflow: TextOverflow.ellipsis,
           ),
         ]),
@@ -118,6 +140,10 @@ class _PacienteDetails extends StatelessWidget {
 }
 
 class _BackgroundImage extends StatelessWidget {
+  final String? url;
+
+  const _BackgroundImage(this.url);
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -126,8 +152,9 @@ class _BackgroundImage extends StatelessWidget {
         width: double.infinity,
         height: 400,
         child: FadeInImage(
+          //TODO: Fix pacientes cuando no hay imagen
           placeholder: AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage('https://via.placeholder.com/400x300.png/f6f6f6'),
+          image: NetworkImage(url!),
           fit: BoxFit.cover,
         ),
       ),

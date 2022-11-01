@@ -17,6 +17,9 @@ class PacienteService extends ChangeNotifier {
 
   //TODO: <List<Paciente>>
   Future loadPacientes() async {
+    this.isLoading = true;
+    notifyListeners();
+
     final url = Uri.https(_baseUrl, 'Paciente.json');
     final resp = await http.get(url);
 
@@ -27,6 +30,9 @@ class PacienteService extends ChangeNotifier {
       tempPaciente.id = key;
       this.pacientes.add(tempPaciente);
     });
-    print(this.pacientes[0].nombreDelPaciente);
+
+    this.isLoading = false;
+    notifyListeners();
+    return this.pacientes;
   }
 }

@@ -14,9 +14,9 @@ class Paciente {
       this.id});
 
   String apellidos;
-  String foto;
+  String? foto;
   String nombreDelPaciente;
-  int telefono;
+  int? telefono;
   bool available;
   String? id;
 
