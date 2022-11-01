@@ -6,8 +6,8 @@ import 'package:http/http.dart' as http;
 
 class PacienteService extends ChangeNotifier {
   final String _baseUrl = 'fisio-7c2ac-default-rtdb.firebaseio.com';
-
   final List<Paciente> pacientes = [];
+  late Paciente selectedPaciente;
 
   bool isLoading = true;
 

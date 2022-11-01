@@ -1,17 +1,21 @@
+import 'package:fisio/services/services.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PacienteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final pacienteService = Provider.of<PacienteService>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
               children: [
-                PacienteImage(),
+                PacienteImage(url: pacienteService.selectedPaciente.foto),
                 Positioned(
                   top: 60,
                   left: 20,

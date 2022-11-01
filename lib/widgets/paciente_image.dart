@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class PacienteImage extends StatelessWidget {
+  final String? url;
+
+  const PacienteImage({Key? key, this.url});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,11 +22,14 @@ class PacienteImage extends StatelessWidget {
             topLeft: Radius.circular(45),
             topRight: Radius.circular(45),
           ),
-          child: FadeInImage(
-            image: NetworkImage('https://via.placeholder.com/400x300/green'),
-            placeholder: AssetImage('assets/jar-loading.gif'),
-            fit: BoxFit.cover,
-          ),
+          child: this.url == null
+              ? Image(
+                  image: AssetImage('assets/no-image.png'), fit: BoxFit.cover)
+              : FadeInImage(
+                  image: NetworkImage(this.url!),
+                  placeholder: AssetImage('assets/jar-loading.gif'),
+                  fit: BoxFit.cover,
+                ),
         ),
       ),
     );
