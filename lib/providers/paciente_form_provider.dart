@@ -8,6 +8,12 @@ class PacienteFormProvider extends ChangeNotifier {
 
   PacienteFormProvider(this.paciente);
 
+  updateAvailability(bool value) {
+    print(value);
+    this.paciente.available = value;
+    notifyListeners();
+  }
+
   bool isValidForm() {
     return formKey.currentState?.validate() ?? false;
   }

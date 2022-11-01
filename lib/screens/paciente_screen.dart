@@ -3,6 +3,7 @@ import 'package:fisio/services/services.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class PacienteScreen extends StatelessWidget {
@@ -29,6 +30,7 @@ class _PacientesScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(
           children: [
             Stack(
@@ -124,6 +126,10 @@ class _PacienteForm extends StatelessWidget {
               ),
               TextFormField(
                 initialValue: '${paciente.telefono}',
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                      RegExp(r'^(\d+)?\.?\d{0,2}'))
+                ],
                 onChanged: (value) {
                   if (int.tryParse(value) == null) {
                     paciente.telefono = 0;
@@ -142,9 +148,7 @@ class _PacienteForm extends StatelessWidget {
                   value: paciente.available,
                   title: Text('Paciente Activo'),
                   activeColor: Colors.indigo,
-                  onChanged: (value) {
-                    // TODO: pendiente
-                  }),
+                  onChanged: pacienteForm.updateAvailability),
               SizedBox(
                 height: 30,
               )
