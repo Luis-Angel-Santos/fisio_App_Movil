@@ -1,3 +1,4 @@
+import 'package:fisio/providers/paciente_form_provider.dart';
 import 'package:fisio/services/services.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/widgets.dart';
@@ -9,6 +10,23 @@ class PacienteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final pacienteService = Provider.of<PacienteService>(context);
 
+    return ChangeNotifierProvider(
+      create: (_) => PacienteFormProvider(pacienteService.selectedPaciente),
+      child: _PacientesScreenBody(pacienteService: pacienteService),
+    );
+  }
+}
+
+class _PacientesScreenBody extends StatelessWidget {
+  const _PacientesScreenBody({
+    Key? key,
+    required this.pacienteService,
+  }) : super(key: key);
+
+  final PacienteService pacienteService;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -63,6 +81,9 @@ class PacienteScreen extends StatelessWidget {
 class _PacienteForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final pacienteForm = Provider.of<PacienteFormProvider>(context);
+    final paciente = pacienteForm.paciente;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Container(
@@ -76,6 +97,12 @@ class _PacienteForm extends StatelessWidget {
                 height: 10,
               ),
               TextFormField(
+                initialValue: paciente.nombreDelPaciente,
+                onChanged: (value) => paciente.nombreDelPaciente = value,
+                validator: (value) {
+                  if (value == null || value.length < 1)
+                    return 'El nombre es obligatorio';
+                },
                 decoration: InputDecorations.authInputDecoration(
                     labelText: 'Nombre del Paciente:', hintText: 'Nombre:'),
               ),
@@ -83,6 +110,12 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
+                initialValue: paciente.apellidos,
+                onChanged: (value) => paciente.apellidos = value,
+                validator: (value) {
+                  if (value == null || value.length < 1)
+                    return 'Los apellidos son obligatorios';
+                },
                 decoration: InputDecorations.authInputDecoration(
                     labelText: 'Apellidos:', hintText: 'Apellidos:'),
               ),
@@ -90,6 +123,15 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
+                initialValue: '${paciente.telefono}',
+                onChanged: (value) {
+                  if (int.tryParse(value) == null) {
+                    paciente.telefono = 0;
+                  } else {
+                    paciente.telefono = int.parse(value);
+                  }
+                },
+                keyboardType: TextInputType.number,
                 decoration: InputDecorations.authInputDecoration(
                     labelText: 'Numero de telefono', hintText: 'Tel:'),
               ),
@@ -97,7 +139,7 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               SwitchListTile.adaptive(
-                  value: true,
+                  value: paciente.available,
                   title: Text('Paciente Activo'),
                   activeColor: Colors.indigo,
                   onChanged: (value) {
