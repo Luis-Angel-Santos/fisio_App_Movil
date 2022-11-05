@@ -37,10 +37,7 @@ class LoginScreenPacientes extends StatelessWidget {
             SizedBox(height: 30),
             GestureDetector(
               onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
+                Navigator.pushNamed(context, 'login');
                 },
                 child: Text(
                 '¿Eres un Médico? Inicia Sesión aquí',
@@ -127,7 +124,7 @@ class _LoginForm extends StatelessWidget {
                         //TODO: validar si el login es correcto
                         loginForm.isLoading = false;
 
-                        Navigator.pushReplacementNamed(context, 'home');
+                        Navigator.pushReplacementNamed(context, 'perfil_paciente');
                       })
           ],
         ),

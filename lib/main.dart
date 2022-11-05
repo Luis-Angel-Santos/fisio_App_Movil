@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
           'home': (_) => HomeScreen(),
           'paciente': (_) => PacienteScreen(),
           'login_paciente': (_) => LoginScreenPacientes(),
+          'perfil_paciente': (_) => ProfilePaciente(),
         },
         theme: ThemeData.light().copyWith(
             scaffoldBackgroundColor: Colors.grey[300],
