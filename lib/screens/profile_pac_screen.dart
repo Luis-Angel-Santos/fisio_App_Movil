@@ -12,12 +12,11 @@ class ProfilePaciente extends StatelessWidget {
   Widget build(BuildContext context) {
   return Scaffold(
       body: SingleChildScrollView(
-        // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(
           children: [
             Stack(
               children: [
-                PacienteImage(url: 'aa.com'),
+                PacienteImage(url: 'aa.com'), //TODO: add image
                 Positioned(
                   top: 60,
                   left: 20,
@@ -55,31 +54,22 @@ class ProfilePaciente extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save_outlined),
         onPressed: () {
-          //TODO Guardar producto
+          //TODO Guardar datos
         },
       ),
     );
   }
 }
-
-class _PacientesScreenBody extends StatelessWidget {
-  const _PacientesScreenBody({
-    Key? key,
-    required this.pacienteService,
-  }) : super(key: key);
-
-  final PacienteService pacienteService;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(
           children: [
             Stack(
               children: [
-                PacienteImage(url: pacienteService.selectedPaciente.foto),
+                PacienteImage(url: 'pacienteService.selectedPaciente.foto'), //TODO: Add foto
                 Positioned(
                   top: 60,
                   left: 20,
@@ -117,18 +107,16 @@ class _PacientesScreenBody extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save_outlined),
         onPressed: () {
-          //TODO Guardar producto
+          //TODO Guardar datos
         },
       ),
     );
   }
-}
+
 
 class _PacienteForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final pacienteForm = Provider.of<PacienteFormProvider>(context);
-    final paciente = pacienteForm.paciente;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -143,8 +131,8 @@ class _PacienteForm extends StatelessWidget {
                 height: 10,
               ),
               TextFormField(
-                initialValue: paciente.nombreDelPaciente,
-                onChanged: (value) => paciente.nombreDelPaciente = value,
+                initialValue: 'Nombre Paciente',
+                onChanged: (value) => 'Nombre paciente',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'El nombre es obligatorio';
@@ -156,8 +144,8 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
-                initialValue: paciente.apellidos,
-                onChanged: (value) => paciente.apellidos = value,
+                initialValue: 'Apellidos paciente',
+                onChanged: (value) => 'Apellidos paciente',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'Los apellidos son obligatorios';
@@ -169,21 +157,8 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
-                initialValue: paciente.fecha,
-                onChanged: (value) => paciente.fecha = value,
-                validator: (value) {
-                  if (value == null || value.length < 1)
-                    return 'La fecha es obligatoria';
-                },
-                decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Fecha:', hintText: 'Ejemplo: 02/11/2022'),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              TextFormField(
-                initialValue: paciente.edad,
-                onChanged: (value) => paciente.edad = value,
+                initialValue: 'Paciente edad',
+                onChanged: (value) => 'Paciente edad',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'La edad es obligatoria';
@@ -195,8 +170,8 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
-                initialValue: paciente.sexo,
-                onChanged: (value) => paciente.sexo = value,
+                initialValue: 'Paciente sexo',
+                onChanged: (value) => 'Paciente sexo',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'El sexo  es obligatorio';
@@ -208,8 +183,8 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
-                initialValue: paciente.ocupacion,
-                onChanged: (value) => paciente.ocupacion = value,
+                initialValue: 'Paciente ocupacion',
+                onChanged: (value) => 'Paciente ocupacion',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'La ocupacion es obligatoria';
@@ -221,8 +196,8 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
-                initialValue: paciente.estadoCivil,
-                onChanged: (value) => paciente.estadoCivil = value,
+                initialValue: 'paciente.estadoCivil',
+                onChanged: (value) => 'paciente.estadoCivil',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'El estado civil es obligatorio';
@@ -235,8 +210,8 @@ class _PacienteForm extends StatelessWidget {
               ),
               Container(
                 child: TextFormField(
-                  initialValue: paciente.domicilio,
-                  onChanged: (value) => paciente.domicilio = value,
+                  initialValue: 'paciente.domicilio',
+                  onChanged: (value) => 'paciente.domicilio',
                   validator: (value) {
                     if (value == null || value.length < 1)
                       return 'El domicilio es obligatorio';
@@ -250,126 +225,21 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
-                initialValue: '${paciente.telefono}',
+                initialValue: 'paciente.telefono',
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
                       RegExp(r'^(\d+)?\.?\d{0,2}'))
                 ],
                 onChanged: (value) {
                   if (int.tryParse(value) == null) {
-                    paciente.telefono = 0;
+                    //paciente.telefono = 0;
                   } else {
-                    paciente.telefono = int.parse(value);
+                    //paciente.telefono = int.parse(value);
                   }
                 },
                 keyboardType: TextInputType.number,
                 decoration: InputDecorations.authInputDecoration(
                     labelText: 'Numero de telefono', hintText: 'Tel:'),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SwitchListTile.adaptive(
-                  value: paciente.available,
-                  title: Text('Paciente Activo'),
-                  activeColor: Colors.indigo,
-                  onChanged: pacienteForm.updateAvailability),
-
-              //TODO: Borrar boton
-              // MaterialButton(
-              //     shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(10)),
-              //     disabledColor: Colors.grey,
-              //     elevation: 0,
-              //     color: Colors.blueAccent,
-              //     child: Container(
-              //         padding:
-              //             EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-              //         child: Text(
-              //           'Antecedentes no patologicos',
-              //           style: TextStyle(fontSize: 18, color: Colors.white),
-              //         )),
-              //     onPressed: () => {
-              //           Navigator.push(
-              //               context,
-              //               MaterialPageRoute(
-              //                   builder: (context) => Antecedentes_no()))
-              //         }),
-
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                'Antecedentes no patologicos',
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                    color: Colors.indigo),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-
-              TextFormField(
-                initialValue: paciente.alimentacion,
-                onChanged: (value) => paciente.alimentacion = value,
-                validator: (value) {
-                  if (value == null || value.length < 1)
-                    return 'El campo de alimentacion es obligatorio';
-                },
-                decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Alimentacion:',
-                    hintText: 'Ejemplo: Huevo 2 dias a la semana '),
-              ),
-
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                initialValue: paciente.ejercicio,
-                decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Ejercicio:',
-                    hintText: 'Ejercicio que realiza el paciente'),
-              ),
-
-              SizedBox(
-                height: 30,
-              ),
-              TextFormField(
-                initialValue: paciente.pasatiempo,
-                onChanged: (value) => paciente.pasatiempo = value,
-                validator: (value) {
-                  if (value == null || value.length < 1)
-                    return 'La casilla de pasa tiempo es obligatoria';
-                },
-                decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Pasatiempo:',
-                    hintText: 'Ejemplo: jugar futbol '),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              TextFormField(
-                initialValue: paciente.religion,
-                onChanged: (value) => paciente.religion = value,
-                decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Religion:', hintText: 'Ejemplo: Crisitiana '),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              TextFormField(
-                initialValue: paciente.adicciones,
-                onChanged: (value) => paciente.adicciones = value,
-                validator: (value) {
-                  if (value == null || value.length < 1)
-                    return 'El campo de adicciones es obligatorio';
-                },
-                decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Adicciones(alcohol, drogas, tabaco):',
-                    hintText: 'Ejemplo: Si, 2 meses con alcoholismo'),
               ),
               SizedBox(
                 height: 30,
@@ -394,11 +264,3 @@ class _PacienteForm extends StatelessWidget {
                 blurRadius: 5)
           ]);
 }
-
-
-// class Antecedentes_no extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
