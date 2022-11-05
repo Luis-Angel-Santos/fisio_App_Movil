@@ -1,4 +1,6 @@
 import 'package:fisio/providers/login_form_provider.dart';
+import 'package:fisio/screens/login_screen_pacientes.dart';
+import 'package:fisio/screens/paciente_screen.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +34,17 @@ class LoginScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 30),
-            Text(
-              '¿Eres un Paciente? Inicia Sesión aquí',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            GestureDetector(
+              onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreenPacientes()),
+                  );
+                },
+                child: Text(
+                '¿Eres un Paciente? Inicia Sesión aquí',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
             SizedBox(height: 50),
           ],

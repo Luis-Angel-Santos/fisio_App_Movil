@@ -1,5 +1,8 @@
 import 'package:fisio/providers/login_form_provider.dart';
+import 'package:fisio/screens/login_screen.dart';
+import 'package:fisio/screens/paciente_screen.dart';
 import 'package:fisio/ui/input_decorations.dart';
+import 'package:fisio/widgets/auth_bground_alt.dart';
 import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +11,7 @@ class LoginScreenPacientes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AuthBackground(
+      body: AuthBackgroundAlt(
         child: SingleChildScrollView(
             child: Column(
           children: [
@@ -32,9 +35,17 @@ class LoginScreenPacientes extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 30),
-            Text(
-              '¿Eres un Paciente? Inicia Sesión aquí',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            GestureDetector(
+              onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+                child: Text(
+                '¿Eres un Médico? Inicia Sesión aquí',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
             SizedBox(height: 50),
           ],
