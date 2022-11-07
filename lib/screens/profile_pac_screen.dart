@@ -13,13 +13,7 @@ class ProfilePaciente extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Stack(
-              children: [
-               CircleAvatar(
-                backgroundImage: AssetImage('assets/Logo.png'),
-                )
-              ],
-            ),
+            SizedBox(height: 20),
             _PacienteForm(),
             SizedBox(height: 100),
           ],
@@ -36,59 +30,6 @@ class ProfilePaciente extends StatelessWidget {
   }
 }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                PacienteImage(url: 'pacienteService.selectedPaciente.foto'), //TODO: Add foto
-                Positioned(
-                  top: 60,
-                  left: 20,
-                  child: IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: Icon(
-                      Icons.arrow_back_sharp,
-                      size: 40,
-                      color: Colors.indigo,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 60,
-                  right: 20,
-                  child: IconButton(
-                    onPressed: () {
-                      //TODO: camara o galeria
-                    },
-                    icon: Icon(
-                      Icons.camera_alt_rounded,
-                      size: 40,
-                      color: Colors.indigo,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            _PacienteForm(),
-            SizedBox(height: 100),
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.save_outlined),
-        onPressed: () {
-          //TODO Guardar datos
-        },
-      ),
-    );
-  }
-
-
 class _PacienteForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -103,104 +44,112 @@ class _PacienteForm extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: 10,
+                height: 30,
+              ),
+              CircleAvatar(
+                  //backgroundImage: AssetImage('assets/Logo.png'),
+                 radius: 80,
+                  //TODO: Seleccionar foto de galeria o cámara
+                ),
+              SizedBox(
+                height: 50,
               ),
               TextFormField(
-                initialValue: 'Nombre Paciente',
-                onChanged: (value) => 'Nombre paciente',
+                initialValue: '',
+                onChanged: (value) => 'Nombre',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'El nombre es obligatorio';
                 },
                 decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Nombre del Paciente:', hintText: 'Nombre:'),
+                    labelText: 'Nombre del Paciente:', hintText: 'Nombre'),
               ),
               SizedBox(
                 height: 30,
               ),
               TextFormField(
-                initialValue: 'Apellidos paciente',
-                onChanged: (value) => 'Apellidos paciente',
+                initialValue: '',
+                onChanged: (value) => 'Apellidos',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'Los apellidos son obligatorios';
                 },
                 decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Apellidos:', hintText: 'Apellidos:'),
+                    labelText: 'Apellidos:', hintText: 'Apellidos'),
               ),
               SizedBox(
                 height: 30,
               ),
               TextFormField(
-                initialValue: 'Paciente edad',
+                initialValue: '',
                 onChanged: (value) => 'Paciente edad',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'La edad es obligatoria';
                 },
                 decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Edad:', hintText: 'Edad: '),
+                    labelText: 'Edad:', hintText: 'Edad'),
               ),
               SizedBox(
                 height: 30,
               ),
               TextFormField(
-                initialValue: 'Paciente sexo',
+                initialValue: '',
                 onChanged: (value) => 'Paciente sexo',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'El sexo  es obligatorio';
                 },
                 decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Sexo:', hintText: 'Masculino o Femenino: '),
+                    labelText: 'Sexo:', hintText: 'Masculino o Femenino'),
               ),
               SizedBox(
                 height: 30,
               ),
               TextFormField(
-                initialValue: 'Paciente ocupacion',
+                initialValue: '',
                 onChanged: (value) => 'Paciente ocupacion',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'La ocupacion es obligatoria';
                 },
                 decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Ocupacion:', hintText: 'Ejemplo: Estudiante '),
+                    labelText: 'Ocupacion:', hintText: 'Ejemplo: Estudiante'),
               ),
               SizedBox(
                 height: 30,
               ),
               TextFormField(
-                initialValue: 'paciente.estadoCivil',
-                onChanged: (value) => 'paciente.estadoCivil',
+                initialValue: '',
+                onChanged: (value) => 'Paciente EstadoCivil',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'El estado civil es obligatorio';
                 },
                 decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Estado Civil:', hintText: 'Ejemplo: Soltero '),
+                    labelText: 'Estado Civil:', hintText: 'Ejemplo: Soltero'),
               ),
               SizedBox(
                 height: 30,
               ),
               Container(
                 child: TextFormField(
-                  initialValue: 'paciente.domicilio',
-                  onChanged: (value) => 'paciente.domicilio',
+                  initialValue: '',
+                  onChanged: (value) => 'Paciente Domicilio',
                   validator: (value) {
                     if (value == null || value.length < 1)
                       return 'El domicilio es obligatorio';
                   },
                   decoration: InputDecorations.authInputDecoration(
                       labelText: 'Domicilio:',
-                      hintText: 'Calle, numero, colonia, estado y municipio '),
+                      hintText: 'Calle, numero, colonia, estado y municipio'),
                 ),
               ),
               SizedBox(
                 height: 30,
               ),
               TextFormField(
-                initialValue: 'paciente.telefono',
+                initialValue: '',
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
                       RegExp(r'^(\d+)?\.?\d{0,2}'))
@@ -214,11 +163,48 @@ class _PacienteForm extends StatelessWidget {
                 },
                 keyboardType: TextInputType.number,
                 decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Numero de telefono', hintText: 'Tel:'),
+                    labelText: 'Número de teléfono:', hintText: 'Tel:'),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              TextFormField(
+                 autocorrect: false,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecorations.authInputDecoration(
+                      hintText: 'yourname@example.com',
+                      labelText: 'Correo electrónico:'),
+                  onChanged: (value) => 'Correo',
+                  validator: (value) {
+                    String pattern =
+                        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                    RegExp regExp = new RegExp(pattern);
+
+                    return regExp.hasMatch(value ?? '')
+                        ? null
+                        : 'El correo no es correcto';
+                  },
               ),
               SizedBox(
                 height: 30,
-              )
+              ),
+              TextFormField(
+                 autocorrect: false,
+                  obscureText: true,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecorations.authInputDecoration(
+                      hintText: '******',
+                      labelText: 'Contraseña:'),
+                  onChanged: (value) => 'Password',
+                  validator: (value) {
+                    return (value != null && value.length >= 6)
+                        ? null
+                        : 'La contraseña debe de ser de 6 caracteres';
+                  },
+              ),
+              SizedBox(
+                height: 40,
+              ),
             ],
           ),
         ),
@@ -231,6 +217,8 @@ class _PacienteForm extends StatelessWidget {
           borderRadius: BorderRadius.only(
             bottomRight: Radius.circular(25),
             bottomLeft: Radius.circular(25),
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
           ),
           boxShadow: [
             BoxShadow(
