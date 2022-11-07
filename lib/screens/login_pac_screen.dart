@@ -1,6 +1,4 @@
 import 'package:fisio/providers/login_form_provider.dart';
-import 'package:fisio/screens/login_screen.dart';
-import 'package:fisio/screens/paciente_screen.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/auth_bground_alt.dart';
 import 'package:fisio/widgets/widgets.dart';
@@ -124,7 +122,7 @@ class _LoginForm extends StatelessWidget {
                         //TODO: validar si el login es correcto
                         loginForm.isLoading = false;
 
-                        Navigator.pushReplacementNamed(context, 'perfil_paciente');
+                        Navigator.pushReplacementNamed(context, 'home_paciente');
                       })
           ],
         ),

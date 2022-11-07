@@ -1,48 +1,23 @@
-import 'package:fisio/providers/antecedentes_no_form_provider.dart';
-import 'package:fisio/providers/paciente_form_provider.dart';
-import 'package:fisio/services/services.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
 class ProfilePaciente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
   return Scaffold(
+    appBar: AppBar(
+        title: Text('Mi Perfil'),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
               children: [
-                PacienteImage(url: 'aa.com'), //TODO: add image
-                Positioned(
-                  top: 60,
-                  left: 20,
-                  child: IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: Icon(
-                      Icons.arrow_back_sharp,
-                      size: 40,
-                      color: Colors.indigo,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 60,
-                  right: 20,
-                  child: IconButton(
-                    onPressed: () {
-                      //TODO: camara o galeria
-                    },
-                    icon: Icon(
-                      Icons.camera_alt_rounded,
-                      size: 40,
-                      color: Colors.indigo,
-                    ),
-                  ),
-                ),
+               CircleAvatar(
+                backgroundImage: AssetImage('assets/Logo.png'),
+                )
               ],
             ),
             _PacienteForm(),

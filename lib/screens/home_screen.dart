@@ -28,7 +28,9 @@ class HomeScreen extends StatelessWidget {
               ))),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          //TODO: Agregar nuevo paciente 
+        },
       ),
     );
   }
