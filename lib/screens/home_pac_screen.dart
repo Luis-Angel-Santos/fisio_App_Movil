@@ -31,6 +31,7 @@ class HomePaciente extends StatelessWidget {
                 height: 60,
               ),
               GestureDetector(
+                //TODO: Menú hamburguesa: Mi Perfil, Mis recetas
                 onTap: () {
                   Navigator.pushNamed(context, 'perfil_paciente');
                   },
