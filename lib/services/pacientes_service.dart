@@ -10,6 +10,7 @@ class PacienteService extends ChangeNotifier {
   late Paciente selectedPaciente;
 
   bool isLoading = true;
+  bool isSaving = false;
 
   PacienteService() {
     this.loadPacientes();
@@ -34,5 +35,31 @@ class PacienteService extends ChangeNotifier {
     this.isLoading = false;
     notifyListeners();
     return this.pacientes;
+  }
+
+  Future saveOrCreatePaciente(Paciente paciente) async {
+    isSaving = true;
+    notifyListeners();
+
+    if (paciente.id == null) {
+      //Es necesario crear
+    } else {
+      await this.updatePaciente(paciente);
+    }
+
+    isSaving = false;
+    notifyListeners();
+  }
+
+  Future<String> updatePaciente(Paciente paciente) async {
+    final url = Uri.https(_baseUrl, 'Paciente/${paciente.id}.json');
+    final resp = await http.put(url, body: paciente.toJson());
+    final decodeData = resp.body;
+
+    print(decodeData);
+
+    //TODO:Actualizar la lista de pacientes
+
+    return paciente.id!;
   }
 }

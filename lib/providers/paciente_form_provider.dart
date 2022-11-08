@@ -15,6 +15,10 @@ class PacienteFormProvider extends ChangeNotifier {
   }
 
   bool isValidForm() {
+    print(paciente.nombreDelPaciente);
+    print(paciente.apellidos);
+    print(paciente.available);
+
     return formKey.currentState?.validate() ?? false;
   }
 }

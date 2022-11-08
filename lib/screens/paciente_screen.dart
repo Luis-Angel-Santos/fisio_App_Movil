@@ -28,6 +28,8 @@ class _PacientesScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pacienteForm = Provider.of<PacienteFormProvider>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -72,8 +74,9 @@ class _PacientesScreenBody extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save_outlined),
-        onPressed: () {
-          //TODO Guardar producto
+        onPressed: () async {
+          if (!pacienteForm.isValidForm()) return;
+          await pacienteService.saveOrCreatePaciente(pacienteForm.paciente);
         },
       ),
     );
@@ -93,6 +96,8 @@ class _PacienteForm extends StatelessWidget {
         width: double.infinity,
         decoration: _buildBoxDecoration(),
         child: Form(
+          key: pacienteForm.formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
               SizedBox(
