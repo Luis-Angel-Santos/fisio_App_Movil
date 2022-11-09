@@ -5,6 +5,7 @@ import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PacienteScreen extends StatelessWidget {
   @override
@@ -54,8 +55,17 @@ class _PacientesScreenBody extends StatelessWidget {
                   top: 60,
                   right: 20,
                   child: IconButton(
-                    onPressed: () {
-                      //TODO: camara o galeria
+                    onPressed: () async {
+                      final picker = new ImagePicker();
+                      final XFile? pickedFile = await picker.pickImage(
+                          source: ImageSource.camera, imageQuality: 100);
+
+                      if (pickedFile == null) {
+                        print('No selecciono ninguna foto');
+                        return;
+                      }
+                      print(
+                          'Se cargo la imagen correctamente ${pickedFile.path}');
                     },
                     icon: Icon(
                       Icons.camera_alt_rounded,
