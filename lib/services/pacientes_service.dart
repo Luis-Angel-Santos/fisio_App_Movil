@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:fisio/models/models.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ class PacienteService extends ChangeNotifier {
   final String _baseUrl = 'fisio-7c2ac-default-rtdb.firebaseio.com';
   final List<Paciente> pacientes = [];
   late Paciente selectedPaciente;
+
+  File? newPictureFile;
 
   bool isLoading = true;
   bool isSaving = false;
@@ -74,5 +77,12 @@ class PacienteService extends ChangeNotifier {
     this.pacientes.add(paciente);
 
     return paciente.id!;
+  }
+
+  void updateSelectedPacienteImage(String path) {
+    this.selectedPaciente.foto = path;
+    this.newPictureFile = File.fromUri(Uri(path: path));
+
+    notifyListeners();
   }
 }

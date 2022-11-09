@@ -66,6 +66,8 @@ class _PacientesScreenBody extends StatelessWidget {
                       }
                       print(
                           'Se cargo la imagen correctamente ${pickedFile.path}');
+                      pacienteService
+                          .updateSelectedPacienteImage(pickedFile.path);
                     },
                     icon: Icon(
                       Icons.camera_alt_rounded,
