@@ -56,9 +56,10 @@ class PacienteService extends ChangeNotifier {
     final resp = await http.put(url, body: paciente.toJson());
     final decodeData = resp.body;
 
-    print(decodeData);
-
     //TODO:Actualizar la lista de pacientes
+    final index =
+        this.pacientes.indexWhere((element) => element.id == paciente.id);
+    this.pacientes[index] = paciente;
 
     return paciente.id!;
   }
