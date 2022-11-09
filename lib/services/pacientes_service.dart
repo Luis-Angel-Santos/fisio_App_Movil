@@ -43,6 +43,7 @@ class PacienteService extends ChangeNotifier {
 
     if (paciente.id == null) {
       //Es necesario crear
+      await this.createPaciente(paciente);
     } else {
       await this.updatePaciente(paciente);
     }
@@ -60,6 +61,17 @@ class PacienteService extends ChangeNotifier {
     final index =
         this.pacientes.indexWhere((element) => element.id == paciente.id);
     this.pacientes[index] = paciente;
+
+    return paciente.id!;
+  }
+
+  Future<String> createPaciente(Paciente paciente) async {
+    final url = Uri.https(_baseUrl, 'Paciente.json');
+    final resp = await http.post(url, body: paciente.toJson());
+    final decodeData = json.decode(resp.body);
+
+    paciente.id = decodeData['name'];
+    this.pacientes.add(paciente);
 
     return paciente.id!;
   }

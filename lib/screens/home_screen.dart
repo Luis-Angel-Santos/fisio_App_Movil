@@ -4,6 +4,8 @@ import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/models.dart';
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,24 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          //TODO: Agregar nuevo paciente 
+          pacientesService.selectedPaciente = new Paciente(
+              nombreDelPaciente: '',
+              apellidos: '',
+              edad: '',
+              adicciones: '',
+              alimentacion: '',
+              available: false,
+              domicilio: '',
+              ejercicio: '',
+              estadoCivil: '',
+              fecha: '',
+              ocupacion: '',
+              pasatiempo: '',
+              religion: '',
+              sexo: '',
+              telefono: 0,
+              foto: null);
+          Navigator.pushNamed(context, 'paciente');
         },
       ),
     );
