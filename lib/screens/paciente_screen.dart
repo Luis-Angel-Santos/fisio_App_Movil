@@ -84,15 +84,20 @@ class _PacientesScreenBody extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.save_outlined),
-        onPressed: () async {
-          if (!pacienteForm.isValidForm()) return;
-          final String? fotoUrl = await pacienteService.uploadImage();
+        child: pacienteService.isSaving
+            ? CircularProgressIndicator(color: Colors.white)
+            : Icon(Icons.save_outlined),
+        onPressed: pacienteService.isSaving
+            ? null
+            : () async {
+                if (!pacienteForm.isValidForm()) return;
+                final String? fotoUrl = await pacienteService.uploadImage();
 
-          print(fotoUrl);
+                if (fotoUrl != null) pacienteForm.paciente.foto = fotoUrl;
 
-          await pacienteService.saveOrCreatePaciente(pacienteForm.paciente);
-        },
+                await pacienteService
+                    .saveOrCreatePaciente(pacienteForm.paciente);
+              },
       ),
     );
   }
