@@ -85,4 +85,36 @@ class PacienteService extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future<String?> uploadImage() async {
+    if (this.newPictureFile == null) return null;
+
+    this.isSaving = true;
+    notifyListeners();
+
+    final url = Uri.parse(
+        'https://api.cloudinary.com/v1_1/drxbjcwsz/image/upload?upload_preset=iwrvzlj0');
+
+    final fotoUploadRequest = http.MultipartRequest('POST', url);
+
+    final file =
+        await http.MultipartFile.fromPath('file', newPictureFile!.path);
+
+    fotoUploadRequest.files.add(file);
+
+    final streamResponse = await fotoUploadRequest.send();
+    final resp = await http.Response.fromStream(streamResponse);
+    if (resp.statusCode != 200 && resp.statusCode != 201) {
+      print('algo salio mal');
+      print(resp.body);
+      return null;
+    }
+
+    this.newPictureFile = null;
+
+    final decodedData = json.decode(resp.body);
+
+    //TODO:borrar esta linea de codigo
+    return decodedData['secure_url'];
+  }
 }

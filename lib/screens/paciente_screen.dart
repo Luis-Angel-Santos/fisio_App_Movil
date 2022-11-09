@@ -64,8 +64,7 @@ class _PacientesScreenBody extends StatelessWidget {
                         print('No selecciono ninguna foto');
                         return;
                       }
-                      print(
-                          'Se cargo la imagen correctamente ${pickedFile.path}');
+
                       pacienteService
                           .updateSelectedPacienteImage(pickedFile.path);
                     },
@@ -88,6 +87,10 @@ class _PacientesScreenBody extends StatelessWidget {
         child: Icon(Icons.save_outlined),
         onPressed: () async {
           if (!pacienteForm.isValidForm()) return;
+          final String? fotoUrl = await pacienteService.uploadImage();
+
+          print(fotoUrl);
+
           await pacienteService.saveOrCreatePaciente(pacienteForm.paciente);
         },
       ),
