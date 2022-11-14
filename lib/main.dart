@@ -1,3 +1,4 @@
+import 'package:fisio/screens/receta_detail.dart';
 import 'package:fisio/screens/screens.dart';
 import 'package:fisio/services/services.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           'login_paciente': (_) => LoginScreenPacientes(),
           'perfil_paciente': (_) => ProfilePaciente(),
           'home_paciente': (_) => HomePaciente(),
+          'receta_detail': (_) => RecetaDetail(),
         },
         theme: ThemeData.light().copyWith(
             scaffoldBackgroundColor: Colors.grey[300],

@@ -49,25 +49,25 @@ class HomePaciente extends StatelessWidget {
                   DataCell(
                     GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, 'login');
+                      Navigator.pushNamed(context, 'receta_detail');
                       },
                       child: Text('1', style: TextStyle(fontSize: 15.0))
                   )),
                   DataCell(GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, 'login');
+                      Navigator.pushNamed(context, 'receta_detail');
                       },
                       child: Text('Receta/Tratamiento', style: TextStyle(fontSize: 15.0))
                   )),  
                  DataCell(GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, 'login');
+                      Navigator.pushNamed(context, 'receta_detail');
                       },
                       child: Text('3', style: TextStyle(fontSize: 15.0))
                   )),  
                   DataCell(GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, 'login');
+                      Navigator.pushNamed(context, 'receta_detail');
                       },
                       child: Text('01/Nov/22', style: TextStyle(fontSize: 15.0))
                   )),  
@@ -76,25 +76,25 @@ class HomePaciente extends StatelessWidget {
                    DataCell(
                     GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, 'login');
+                      Navigator.pushNamed(context, 'receta_detail');
                       },
                       child: Text('2', style: TextStyle(fontSize: 15.0))
                   )),
                   DataCell(GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, 'login');
+                      Navigator.pushNamed(context, 'receta_detail');
                       },
                       child: Text('Receta/Tratamiento', style: TextStyle(fontSize: 15.0))
                   )),  
                  DataCell(GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, 'login');
+                      Navigator.pushNamed(context, 'receta_detail');
                       },
                       child: Text('2', style: TextStyle(fontSize: 15.0))
                   )),  
                   DataCell(GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, 'login');
+                      Navigator.pushNamed(context, 'receta_detail');
                       },
                       child: Text('03/Nov/22', style: TextStyle(fontSize: 15.0))
                   )),   
@@ -103,25 +103,25 @@ class HomePaciente extends StatelessWidget {
                   DataCell(
                     GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, 'login');
+                      Navigator.pushNamed(context, 'receta_detail');
                       },
                       child: Text('3', style: TextStyle(fontSize: 15.0))
                   )),
                   DataCell(GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, 'login');
+                      Navigator.pushNamed(context, 'receta_detail');
                       },
                       child: Text('Receta/Tratamiento', style: TextStyle(fontSize: 15.0))
                   )),  
                  DataCell(GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, 'login');
+                      Navigator.pushNamed(context, 'receta_detail');
                       },
                       child: Text('3', style: TextStyle(fontSize: 15.0))
                   )),  
                   DataCell(GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, 'login');
+                      Navigator.pushNamed(context, 'receta_detail');
                       },
                       child: Text('05/Nov/22', style: TextStyle(fontSize: 15.0))
                   )),  
