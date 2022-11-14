@@ -12,7 +12,7 @@ class BurguerMenu extends StatelessWidget {
           _buildDrawerItem(icon: Icons.account_circle, text: 'Mi perfil', onTap: () => {
               Navigator.pushReplacementNamed(context, 'perfil_paciente')
           }),
-          _buildDrawerItem(icon: Icons.contact_phone, text: 'Mis Recetas', onTap: () => {
+          _buildDrawerItem(icon: Icons.medical_information, text: 'Mis Recetas', onTap: () => {
             Navigator.pushReplacementNamed(context, 'home_paciente')
           }),
           _buildDrawerItem(icon: Icons.settings, text: 'Ajustes', onTap: () => {
@@ -20,7 +20,7 @@ class BurguerMenu extends StatelessWidget {
           }),
           Divider(),
           _buildDrawerItem(icon: Icons.exit_to_app, text: 'Cerrar sesión', onTap: () => {
-            Navigator.pushReplacementNamed(context,'login_paciente') //TODO: Pantalla ajustes
+            Navigator.pushReplacementNamed(context,'login_paciente')
           }),
           Divider(), //<-- espacio
           ListTile(
