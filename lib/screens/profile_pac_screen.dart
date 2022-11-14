@@ -1,4 +1,5 @@
 import 'package:fisio/ui/input_decorations.dart';
+import 'package:fisio/widgets/burguer_menu.dart';
 import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,7 @@ class ProfilePaciente extends StatelessWidget {
     appBar: AppBar(
         title: Text('Mi Perfil'),
       ),
+      drawer: BurguerMenu(),
       body: SingleChildScrollView(
         child: Column(
           children: [

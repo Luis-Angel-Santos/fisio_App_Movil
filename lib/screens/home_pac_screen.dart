@@ -1,3 +1,4 @@
+import 'package:fisio/widgets/burguer_menu.dart';
 import 'package:flutter/material.dart';
 
 class HomePaciente extends StatelessWidget {
@@ -7,6 +8,7 @@ class HomePaciente extends StatelessWidget {
       appBar: AppBar(
         title: Text('Mis Recetas'),
       ),
+      drawer: BurguerMenu(),
       body: SingleChildScrollView(
         child: Form(
           child: Column(
