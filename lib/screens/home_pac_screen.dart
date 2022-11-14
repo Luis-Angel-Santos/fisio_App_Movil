@@ -46,30 +46,85 @@ class HomePaciente extends StatelessWidget {
               ],  
               rows: [  
                 DataRow(cells: [  
-                  DataCell(Text('1')),  
-                  DataCell(Text('Receta/Tratamiento')),  
-                  DataCell(Text('3')),
-                  DataCell(Text('01/Nov/22')),
+                  DataCell(
+                    GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'login');
+                      },
+                      child: Text('1', style: TextStyle(fontSize: 15.0))
+                  )),
+                  DataCell(GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'login');
+                      },
+                      child: Text('Receta/Tratamiento', style: TextStyle(fontSize: 15.0))
+                  )),  
+                 DataCell(GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'login');
+                      },
+                      child: Text('3', style: TextStyle(fontSize: 15.0))
+                  )),  
+                  DataCell(GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'login');
+                      },
+                      child: Text('01/Nov/22', style: TextStyle(fontSize: 15.0))
+                  )),  
                 ]),  
                 DataRow(cells: [  
-                  DataCell(Text('2')),  
-                  DataCell(Text('Receta/Tratamiento')),  
-                  DataCell(Text('2')),
-                  DataCell(Text('03/Nov/22')),  
+                   DataCell(
+                    GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'login');
+                      },
+                      child: Text('2', style: TextStyle(fontSize: 15.0))
+                  )),
+                  DataCell(GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'login');
+                      },
+                      child: Text('Receta/Tratamiento', style: TextStyle(fontSize: 15.0))
+                  )),  
+                 DataCell(GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'login');
+                      },
+                      child: Text('2', style: TextStyle(fontSize: 15.0))
+                  )),  
+                  DataCell(GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'login');
+                      },
+                      child: Text('03/Nov/22', style: TextStyle(fontSize: 15.0))
+                  )),   
                 ]),  
                 DataRow(cells: [  
                   DataCell(
-                    Column(children:[Text('3', style: TextStyle(fontSize: 15.0))]),  
-                  ),
-                  DataCell(
-                    Column(children:[Text('Receta/Tratamiento', style: TextStyle(fontSize: 15.0))]),  
-                  ),
-                  DataCell(
-                    Column(children:[Text('3', style: TextStyle(fontSize: 15.0, color: Colors.blue, fontWeight: FontWeight.bold))]),  
-                  ),
-                  DataCell(
-                    Column(children:[Text('05/Nov/22', style: TextStyle(fontSize: 15.0))]),  
-                  ),
+                    GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'login');
+                      },
+                      child: Text('3', style: TextStyle(fontSize: 15.0))
+                  )),
+                  DataCell(GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'login');
+                      },
+                      child: Text('Receta/Tratamiento', style: TextStyle(fontSize: 15.0))
+                  )),  
+                 DataCell(GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'login');
+                      },
+                      child: Text('3', style: TextStyle(fontSize: 15.0))
+                  )),  
+                  DataCell(GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'login');
+                      },
+                      child: Text('05/Nov/22', style: TextStyle(fontSize: 15.0))
+                  )),  
                 ]),
               ],  
             ), 
