@@ -310,6 +310,7 @@ class _PacienteForm extends StatelessWidget {
               ),
               TextFormField(
                 initialValue: paciente.ejercicio,
+                onChanged: (value) => paciente.ejercicio = value,
                 decoration: InputDecorations.authInputDecoration(
                     labelText: 'Ejercicio:',
                     hintText: 'Ejercicio que realiza el paciente'),

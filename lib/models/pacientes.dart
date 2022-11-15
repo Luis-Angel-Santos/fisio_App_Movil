@@ -78,7 +78,7 @@ class Paciente {
         "Domicilio": domicilio,
         "Alimentacion": alimentacion,
         "Ejercicio": ejercicio,
-        "Pasa Tiempo": pasatiempo,
+        "Pasatiempo": pasatiempo,
         "Religion": religion,
         "Adicciones": adicciones,
       };
