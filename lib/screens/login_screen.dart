@@ -1,6 +1,7 @@
 import 'package:fisio/providers/login_form_provider.dart';
 import 'package:fisio/screens/login_pac_screen.dart';
 import 'package:fisio/screens/paciente_screen.dart';
+import 'package:fisio/services/services.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -124,6 +125,8 @@ class _LoginForm extends StatelessWidget {
                   ? null
                   : () async {
                       FocusScope.of(context).unfocus();
+                      final authservice =
+                          Provider.of<AuthService>(context, listen: false);
 
                       if (!loginForm.isValidForm()) return;
 
@@ -132,9 +135,16 @@ class _LoginForm extends StatelessWidget {
                       await Future.delayed(Duration(seconds: 2));
 
                       //TODO: validar si el login es correcto
-                      loginForm.isLoading = false;
+                      final String? errorMessage = await authservice.login(
+                          loginForm.email, loginForm.password);
 
-                      Navigator.pushReplacementNamed(context, 'home');
+                      if (errorMessage == null) {
+                        Navigator.pushReplacementNamed(context, 'home');
+                      } else {
+                        //TODO: mostrar error en pantalla
+                        print(errorMessage);
+                        loginForm.isLoading = false;
+                      }
                     },
             ),
           ],
