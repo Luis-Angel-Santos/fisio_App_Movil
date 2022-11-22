@@ -1,12 +1,11 @@
 import 'package:fisio/providers/login_form_provider.dart';
-import 'package:fisio/screens/login_pac_screen.dart';
-import 'package:fisio/screens/paciente_screen.dart';
+
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +19,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 SizedBox(height: 10),
                 Text(
-                  'Login FISIO',
+                  'Crear Cuenta',
                   style: Theme.of(context).textTheme.headline4,
                 ),
                 SizedBox(height: 20),
@@ -30,28 +29,17 @@ class LoginScreen extends StatelessWidget {
             )),
             SizedBox(height: 30),
             TextButton(
-              onPressed: () =>
-                  Navigator.pushReplacementNamed(context, 'register'),
+              onPressed: () => Navigator.pushReplacementNamed(context, 'login'),
               style: ButtonStyle(
                   overlayColor:
                       MaterialStateProperty.all(Colors.indigo.withOpacity(0.1)),
                   shape: MaterialStateProperty.all(StadiumBorder())),
               child: Text(
-                'Crear una nueva cuenta',
+                '¿Ya tienes una cuenta?',
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87),
-              ),
-            ),
-            SizedBox(height: 30),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, 'login_paciente');
-              },
-              child: Text(
-                '¿Eres un Paciente? Inicia Sesión aquí',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(height: 50),

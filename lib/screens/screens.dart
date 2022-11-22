@@ -1,3 +1,5 @@
+export 'package:fisio/screens/register_screen.dart';
+
 export 'package:fisio/screens/loading_screen.dart';
 export 'package:fisio/screens/paciente_screen.dart';
 export 'package:fisio/screens/home_screen.dart';
