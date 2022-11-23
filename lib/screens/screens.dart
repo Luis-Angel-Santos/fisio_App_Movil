@@ -1,3 +1,5 @@
+export 'package:fisio/screens/check_auth_screen.dart';
+
 export 'package:fisio/screens/register_screen.dart';
 
 export 'package:fisio/screens/loading_screen.dart';

@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'FISIO App',
-        initialRoute: 'login',
+        initialRoute: 'checking',
         routes: {
           'login': (_) => LoginScreen(),
           'register': (_) => RegisterScreen(),
@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
           'perfil_paciente': (_) => ProfilePaciente(),
           'home_paciente': (_) => HomePaciente(),
           'receta_detail': (_) => RecetaDetail(),
+          'checking': (_) => CheckAuthScreen(),
         },
         theme: ThemeData.light().copyWith(
             scaffoldBackgroundColor: Colors.grey[300],
