@@ -3,12 +3,15 @@ import 'dart:io';
 
 import 'package:fisio/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class PacienteService extends ChangeNotifier {
   final String _baseUrl = 'fisio-7c2ac-default-rtdb.firebaseio.com';
   final List<Paciente> pacientes = [];
   late Paciente selectedPaciente;
+
+  final storage = new FlutterSecureStorage();
 
   File? newPictureFile;
 
@@ -24,7 +27,8 @@ class PacienteService extends ChangeNotifier {
     this.isLoading = true;
     notifyListeners();
 
-    final url = Uri.https(_baseUrl, 'Paciente.json');
+    final url = Uri.https(_baseUrl, 'Paciente.json',
+        {'auth': await storage.read(key: 'token') ?? ''});
     final resp = await http.get(url);
 
     final Map<String, dynamic> pacientesMap = json.decode(resp.body);
@@ -56,7 +60,8 @@ class PacienteService extends ChangeNotifier {
   }
 
   Future<String> updatePaciente(Paciente paciente) async {
-    final url = Uri.https(_baseUrl, 'Paciente/${paciente.id}.json');
+    final url = Uri.https(_baseUrl, 'Paciente/${paciente.id}.json',
+        {'auth': await storage.read(key: 'token') ?? ''});
     final resp = await http.put(url, body: paciente.toJson());
     final decodeData = resp.body;
 
@@ -69,7 +74,8 @@ class PacienteService extends ChangeNotifier {
   }
 
   Future<String> createPaciente(Paciente paciente) async {
-    final url = Uri.https(_baseUrl, 'Paciente.json');
+    final url = Uri.https(_baseUrl, 'Paciente.json',
+        {'auth': await storage.read(key: 'token') ?? ''});
     final resp = await http.post(url, body: paciente.toJson());
     final decodeData = json.decode(resp.body);
 
