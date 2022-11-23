@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
           'receta_detail': (_) => RecetaDetail(),
           'checking': (_) => CheckAuthScreen(),
         },
+        scaffoldMessengerKey: NotificationsService.messengerKey,
         theme: ThemeData.light().copyWith(
             scaffoldBackgroundColor: Colors.grey[300],
             appBarTheme: AppBarTheme(elevation: 0, color: Colors.indigo),

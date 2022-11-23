@@ -1,11 +1,12 @@
 import 'package:fisio/providers/login_form_provider.dart';
-import 'package:fisio/screens/login_pac_screen.dart';
-import 'package:fisio/screens/paciente_screen.dart';
+import 'package:fisio/services/notifications_service.dart';
 import 'package:fisio/services/services.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:fisio/ui/input_decorations.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -141,8 +142,8 @@ class _LoginForm extends StatelessWidget {
                       if (errorMessage == null) {
                         Navigator.pushReplacementNamed(context, 'home');
                       } else {
-                        //TODO: mostrar error en pantalla
-                        print(errorMessage);
+                        // print(errorMessage);
+                        NotificationsService.showSnackbar(errorMessage);
                         loginForm.isLoading = false;
                       }
                     },
