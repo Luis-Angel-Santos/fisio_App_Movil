@@ -1,4 +1,5 @@
 import 'package:fisio/screens/screens.dart';
+import 'package:fisio/services/auth_service.dart';
 import 'package:fisio/services/pacientes_service.dart';
 import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +11,20 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pacientesService = Provider.of<PacienteService>(context);
+    final authService = Provider.of<AuthService>(context, listen: false);
 
     if (pacientesService.isLoading) return LoadingScreen();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Historias Clinicas'),
-      ),
+          title: Text('Historias Clinicas'),
+          leading: IconButton(
+            icon: Icon(Icons.login_outlined),
+            onPressed: () async {
+              await authService.logout();
+              Navigator.pushReplacementNamed(context, 'login');
+            },
+          )),
       body: ListView.builder(
           itemCount: pacientesService.pacientes.length,
           itemBuilder: (BuildContext context, int index) => GestureDetector(

@@ -1,3 +1,5 @@
+import 'package:fisio/screens/home_screen.dart';
+import 'package:fisio/screens/login_screen.dart';
 import 'package:fisio/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,13 +16,24 @@ class CheckAuthScreen extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             if (!snapshot.hasData) return Text('Espere');
 
-            // if(snapshot.data == ''){
+            if (snapshot.data == '') {
+              Future.microtask(() {
+                Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                        pageBuilder: (_, __, ___) => LoginScreen(),
+                        transitionDuration: Duration(seconds: 0)));
+              });
+            } else {
+              Future.microtask(() {
+                Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                        pageBuilder: (_, __, ___) => HomeScreen(),
+                        transitionDuration: Duration(seconds: 0)));
+              });
+            }
 
-            // }
-
-            Future.microtask(() {
-              Navigator.of(context).pushReplacementNamed('home');
-            });
             return Container();
           },
         ),
