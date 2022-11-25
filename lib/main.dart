@@ -13,6 +13,7 @@ class AppState extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthService()),
         ChangeNotifierProvider(create: (_) => PacienteService()),
+        ChangeNotifierProvider(create: (_) => PacienteUserService()),
       ],
       child: MyApp(),
     );
