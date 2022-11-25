@@ -1,12 +1,23 @@
+import 'package:fisio/providers/paciente_user_form_provider.dart';
+import 'package:fisio/services/services.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/burguer_menu.dart';
 import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePaciente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+  final pacienteService = Provider.of<PacienteUserService>(context);
+  final PacienteService pacienteUserService;
+
+  /*return ChangeNotifierProvider(
+      create: (_) => PacienteFormProvider(pacienteService.selectedPaciente),
+      child: _PacientesScreenBody(pacienteService: pacienteService),
+    );*/
+
   return Scaffold(
     appBar: AppBar(
         title: Text('Mi Perfil'),
@@ -35,6 +46,8 @@ class ProfilePaciente extends StatelessWidget {
 class _PacienteForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final pacienteForm = Provider.of<PacienteUserFormProvider>(context);
+    final paciente = pacienteForm.paciente_user;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -43,13 +56,15 @@ class _PacienteForm extends StatelessWidget {
         width: double.infinity,
         decoration: _buildBoxDecoration(),
         child: Form(
+          key: pacienteForm.formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
               SizedBox(
                 height: 30,
               ),
               CircleAvatar(
-                  //backgroundImage: AssetImage('assets/Logo.png'),
+                 //backgroundImage: AssetImage('imagen'),
                  radius: 80,
                   //TODO: Seleccionar foto de galeria o cámara
                 ),
@@ -57,8 +72,8 @@ class _PacienteForm extends StatelessWidget {
                 height: 50,
               ),
               TextFormField(
-                initialValue: '',
-                onChanged: (value) => 'Nombre',
+                initialValue: paciente.nombreDelPaciente,
+                onChanged: (value) => paciente.nombreDelPaciente = value,
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'El nombre es obligatorio';
@@ -70,8 +85,8 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
-                initialValue: '',
-                onChanged: (value) => 'Apellidos',
+                initialValue: paciente.apellidos,
+                onChanged: (value) => paciente.apellidos = value,
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'Los apellidos son obligatorios';
@@ -83,8 +98,8 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
-                initialValue: '',
-                onChanged: (value) => 'Paciente edad',
+                initialValue: paciente.edad,
+                onChanged: (value) => paciente.edad = value,
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'La edad es obligatoria';
@@ -96,8 +111,8 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
-                initialValue: '',
-                onChanged: (value) => 'Paciente sexo',
+                initialValue: paciente.sexo,
+                onChanged: (value) => paciente.sexo = value,
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'El sexo  es obligatorio';
@@ -109,8 +124,8 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
-                initialValue: '',
-                onChanged: (value) => 'Paciente ocupacion',
+                initialValue: paciente.ocupacion,
+                onChanged: (value) => paciente.ocupacion = value,
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'La ocupacion es obligatoria';
@@ -122,8 +137,8 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
-                initialValue: '',
-                onChanged: (value) => 'Paciente EstadoCivil',
+                initialValue: paciente.estadoCivil,
+                onChanged: (value) => paciente.estadoCivil = value,
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'El estado civil es obligatorio';
@@ -136,8 +151,8 @@ class _PacienteForm extends StatelessWidget {
               ),
               Container(
                 child: TextFormField(
-                  initialValue: '',
-                  onChanged: (value) => 'Paciente Domicilio',
+                  initialValue: paciente.domicilio,
+                  onChanged: (value) => paciente.domicilio = value,
                   validator: (value) {
                     if (value == null || value.length < 1)
                       return 'El domicilio es obligatorio';
@@ -151,16 +166,16 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               TextFormField(
-                initialValue: '',
+                initialValue: '${paciente.telefono}',
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
                       RegExp(r'^(\d+)?\.?\d{0,2}'))
                 ],
                 onChanged: (value) {
                   if (int.tryParse(value) == null) {
-                    //paciente.telefono = 0;
+                    paciente.telefono = 0;
                   } else {
-                    //paciente.telefono = int.parse(value);
+                    paciente.telefono = int.parse(value);
                   }
                 },
                 keyboardType: TextInputType.number,
