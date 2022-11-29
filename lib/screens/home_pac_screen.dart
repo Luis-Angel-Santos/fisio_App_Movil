@@ -1,9 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fisio/widgets/burguer_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:fisio/services/auth_service.dart';
+import 'package:fisio/services/pacientes_service.dart';
 
+// ignore: must_be_immutable
 class HomePaciente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+  //print(PacienteService().getInfoPaciente());
   return Scaffold(
       appBar: AppBar(
         title: Text('Mis Recetas'),

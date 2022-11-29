@@ -4,12 +4,17 @@ import 'dart:io';
 import 'package:fisio/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:http/http.dart' as http;
+import 'package:localstorage/localstorage.dart';
 
 class PacienteService extends ChangeNotifier {
-  final String _baseUrl = 'fisio-7c2ac-default-rtdb.firebaseio.com';
+  final String _baseUrl = 'https://fisioapp-73d11-default-rtdb.firebaseio.com/';
   final List<Paciente> pacientes = [];
   late Paciente selectedPaciente;
+  final db = FirebaseFirestore.instance;
+  final LocalStorage localStorage = new LocalStorage('idUser');
 
   final storage = new FlutterSecureStorage();
 
@@ -122,5 +127,17 @@ class PacienteService extends ChangeNotifier {
 
     //TODO:borrar esta linea de codigo
     return decodedData['secure_url'];
+  }
+
+  getInfoPaciente(){
+    final id = localStorage.getItem('idUser');
+    final docRef = db.collection("pacientes").doc(id);
+    docRef.snapshots().listen(
+      (event) {
+        final source = (event.metadata.hasPendingWrites) ? "Local" : "Server";
+        print("$source data: ${event.data()}");
+      },
+      onError: (error) => print("Listen failed: $error"),
+    );
   }
 }

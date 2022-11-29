@@ -20,7 +20,7 @@ class LoginScreenPacientes extends StatelessWidget {
               children: [
                 SizedBox(height: 10),
                 Text(
-                  'Login Pacientes',
+                  'Iniciar Sesión',
                   style: Theme.of(context).textTheme.headline4,
                 ),
                 SizedBox(height: 20),
@@ -29,21 +29,7 @@ class LoginScreenPacientes extends StatelessWidget {
               ],
             )),
             SizedBox(height: 30),
-            Text(
-              'Crear una nueva cuenta',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 30),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, 'login');
-                },
-                child: Text(
-                '¿Eres un Médico? Inicia Sesión aquí',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(height: 50),
+            
           ],
         )),
       ),

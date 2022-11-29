@@ -3,8 +3,16 @@ import 'package:fisio/screens/screens.dart';
 import 'package:fisio/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() => runApp(AppState());
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(AppState());
+}
 
 class AppState extends StatelessWidget {
   @override
@@ -28,7 +36,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'FISIO App',
-        initialRoute: 'login',
+        initialRoute: 'login_paciente',
         routes: {
           'login': (_) => LoginScreen(),
           'register': (_) => RegisterScreen(),

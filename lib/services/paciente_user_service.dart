@@ -7,7 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class PacienteUserService extends ChangeNotifier {
-  final String _baseUrl = 'fisio-7c2ac-default-rtdb.firebaseio.com';
+  final String _baseUrl = 'https://fisioapp-73d11-default-rtdb.firebaseio.com/';
   final List<PacienteUser> pacientes_user = [];
   late PacienteUser selectedPaciente;
 
