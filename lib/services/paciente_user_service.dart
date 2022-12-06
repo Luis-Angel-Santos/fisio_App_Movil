@@ -1,20 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fisio/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:http/http.dart' as http;
-import 'package:localstorage/localstorage.dart';
 
-class PacienteService extends ChangeNotifier {
+class PacienteUserService extends ChangeNotifier {
   final String _baseUrl = 'https://fisioapp-73d11-default-rtdb.firebaseio.com/';
-  final List<Paciente> pacientes = [];
-  late Paciente selectedPaciente;
-  final db = FirebaseFirestore.instance;
-  final LocalStorage localStorage = new LocalStorage('idUser');
+  final List<PacienteUser> pacientes_user = [];
+  late PacienteUser selectedPaciente;
+  final db = FirebaseFirestore.instance; 
 
   final storage = new FlutterSecureStorage();
 
@@ -23,71 +20,70 @@ class PacienteService extends ChangeNotifier {
   bool isLoading = true;
   bool isSaving = false;
 
-  PacienteService() {
-    this.loadPacientes();
+  PacienteUserService() {
+    this.loadPacientesUser();
   }
 
-  //TODO: <List<Paciente>>
-  Future loadPacientes() async {
+  Future loadPacientesUser() async {
     this.isLoading = true;
     notifyListeners();
 
-    final url = Uri.https(_baseUrl, 'Paciente.json',
+    final url = Uri.https(_baseUrl, 'PacienteUser.json',
         {'auth': await storage.read(key: 'token') ?? ''});
     final resp = await http.get(url);
 
-    final Map<String, dynamic> pacientesMap = json.decode(resp.body);
+    final Map<String, dynamic> pacientesUserMap = json.decode(resp.body);
 
-    pacientesMap.forEach((key, value) {
-      final tempPaciente = Paciente.fromMap(value);
-      tempPaciente.id = key;
-      this.pacientes.add(tempPaciente);
+    pacientesUserMap.forEach((key, value) {
+      final tempPacienteUser = PacienteUser.fromMap(value);
+      tempPacienteUser.id = key;
+      this.pacientes_user.add(tempPacienteUser);
     });
 
     this.isLoading = false;
     notifyListeners();
-    return this.pacientes;
+    return this.pacientes_user;
   }
 
-  Future saveOrCreatePaciente(Paciente paciente) async {
+  Future saveOrCreatePaciente(PacienteUser paciente_user) async {
     isSaving = true;
     notifyListeners();
 
-    if (paciente.id == null) {
+    if (paciente_user.id == null) {
       //Es necesario crear
-      await this.createPaciente(paciente);
+      await this.createPaciente(paciente_user);
     } else {
-      await this.updatePaciente(paciente);
+      await this.updatePaciente(paciente_user);
     }
 
     isSaving = false;
     notifyListeners();
   }
 
-  Future<String> updatePaciente(Paciente paciente) async {
-    final url = Uri.https(_baseUrl, 'Paciente/${paciente.id}.json',
+  Future<String> updatePaciente(PacienteUser paciente_user) async {
+    final url = Uri.https(_baseUrl, 'PacienteUser/${paciente_user.id}.json',
         {'auth': await storage.read(key: 'token') ?? ''});
-    final resp = await http.put(url, body: paciente.toJson());
+    final resp = await http.put(url, body: paciente_user.toJson());
     final decodeData = resp.body;
 
     //TODO:Actualizar la lista de pacientes
     final index =
-        this.pacientes.indexWhere((element) => element.id == paciente.id);
-    this.pacientes[index] = paciente;
+        this.pacientes_user.indexWhere((element) => element.id == paciente_user.id);
+    this.pacientes_user[index] = paciente_user;
 
-    return paciente.id!;
+    return paciente_user.id!;
   }
 
-  Future<String> createPaciente(Paciente paciente) async {
-    final url = Uri.https(_baseUrl, 'Paciente.json',
+  Future<String> createPaciente(PacienteUser paciente_user) async {
+    final url = Uri.https(_baseUrl, 'PacienteUser.json',
         {'auth': await storage.read(key: 'token') ?? ''});
-    final resp = await http.post(url, body: paciente.toJson());
+    final resp = await http.post(url, body: paciente_user.toJson());
     final decodeData = json.decode(resp.body);
 
-    paciente.id = decodeData['name'];
-    this.pacientes.add(paciente);
+    paciente_user.id = decodeData['name'];
+    this.pacientes_user.add(paciente_user);
 
-    return paciente.id!;
+    return paciente_user.id!;
   }
 
   void updateSelectedPacienteImage(String path) {
@@ -116,7 +112,7 @@ class PacienteService extends ChangeNotifier {
     final streamResponse = await fotoUploadRequest.send();
     final resp = await http.Response.fromStream(streamResponse);
     if (resp.statusCode != 200 && resp.statusCode != 201) {
-      print('algo salio mal');
+      print('algo salió mal');
       print(resp.body);
       return null;
     }
@@ -129,15 +125,16 @@ class PacienteService extends ChangeNotifier {
     return decodedData['secure_url'];
   }
 
-  getInfoPaciente(){
-    final id = localStorage.getItem('idUser');
-    final docRef = db.collection("pacientes").doc(id);
-    docRef.snapshots().listen(
-      (event) {
-        final source = (event.metadata.hasPendingWrites) ? "Local" : "Server";
-        print("$source data: ${event.data()}");
-      },
-      onError: (error) => print("Listen failed: $error"),
+  Future<String> obtenerExpediente(String id) async {
+    var idExpediente;
+    final docRef = db.collection("pacientes").doc(id); 
+    await docRef.snapshots().listen(
+          (event) =>  {
+            idExpediente = event.data()!['expedienteMedico'],
+          },
+          onError: (error) => print("Listen failed: $error"),
     );
+    return idExpediente;
+
   }
 }

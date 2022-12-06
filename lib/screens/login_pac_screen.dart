@@ -1,4 +1,6 @@
 import 'package:fisio/providers/login_form_provider.dart';
+import 'package:fisio/screens/home_pac_screen.dart';
+import 'package:fisio/services/services.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/auth_bground_alt.dart';
 import 'package:fisio/widgets/widgets.dart';
@@ -19,7 +21,7 @@ class LoginScreenPacientes extends StatelessWidget {
               children: [
                 SizedBox(height: 10),
                 Text(
-                  'Login Pacientes',
+                  'Iniciar Sesión',
                   style: Theme.of(context).textTheme.headline4,
                 ),
                 SizedBox(height: 20),
@@ -28,21 +30,7 @@ class LoginScreenPacientes extends StatelessWidget {
               ],
             )),
             SizedBox(height: 30),
-            Text(
-              'Crear una nueva cuenta',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 30),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, 'login');
-                },
-                child: Text(
-                '¿Eres un Médico? Inicia Sesión aquí',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(height: 50),
+            
           ],
         )),
       ),
@@ -112,6 +100,7 @@ class _LoginForm extends StatelessWidget {
                     ? null
                     : () async {
                         FocusScope.of(context).unfocus();
+                         final authservice = Provider.of<AuthService>(context, listen: false);
 
                         if (!loginForm.isValidForm()) return;
 
@@ -119,10 +108,17 @@ class _LoginForm extends StatelessWidget {
 
                         await Future.delayed(Duration(seconds: 2));
 
-                        //TODO: validar si el login es correcto
-                        loginForm.isLoading = false;
+                         //Validación login correcto
+                        final String? errorMessage = await authservice.login(
+                            loginForm.email, loginForm.password);
 
-                        Navigator.pushReplacementNamed(context, 'home_paciente');
+                        if (errorMessage == null) {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePaciente(idUser: authservice.idUser, idExpediente: authservice.idExpediente)));
+                        } else {
+                          // print(errorMessage);
+                          NotificationsService.showSnackbar(errorMessage);
+                          loginForm.isLoading = false;
+                        }
                       })
           ],
         ),

@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:fisio/widgets/burguer_menu.dart';
 
 class RecetaDetail extends StatelessWidget {
+  final String idUser;
+  final String idExpediente;
+  final String descripcion;
+  final String fecha;
+  final String nombreMedico;
+  final String nombrePaciente;
+  final String tratamiento;
+  RecetaDetail({required this.idUser, required this.idExpediente, required this.descripcion, required this.fecha, required this.nombreMedico, required this.nombrePaciente, required this.tratamiento});
   @override
   Widget build(BuildContext context) {
   return Scaffold(
       appBar: AppBar(
-        title: Text('Receta #N'),
+        title: Text('Receta de $nombrePaciente'),
       ),
-      drawer: BurguerMenu(),
+      drawer: BurguerMenu(idUser: idUser, idExpediente: idExpediente,),
       body: SingleChildScrollView(
           child: Column(
             children: [
@@ -31,24 +39,30 @@ class RecetaDetail extends StatelessWidget {
                 height: 40,
               ),
               Text(
-                  'N días',
+                  'Estimado $nombrePaciente, el Fisioterapeuta $nombreMedico te ha asignado lo siguiente',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
-                  'N Noviembre 2022',
+                  'Receta asignada el $fecha',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
               ),
               SizedBox(
                 height: 30,
               ),
               Text(
-                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged',
+                  'Descripcion de la receta: $descripcion',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
               ),
-
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                  'Tratamiendot recomendado: $tratamiento',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+              ),
 
             ]
           )
