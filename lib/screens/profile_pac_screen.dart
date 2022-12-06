@@ -5,13 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ProfilePaciente extends StatelessWidget {
+  final String idUser;
+  final String idExpediente;
+  ProfilePaciente({required this.idUser, required this.idExpediente});
+
   @override
   Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
         title: Text('Mi Perfil'),
       ),
-      drawer: BurguerMenu(),
+      drawer: BurguerMenu(idUser: idUser, idExpediente: idExpediente),
       body: SingleChildScrollView(
         child: Column(
           children: [

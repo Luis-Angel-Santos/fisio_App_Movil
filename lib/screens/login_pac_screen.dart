@@ -1,4 +1,5 @@
 import 'package:fisio/providers/login_form_provider.dart';
+import 'package:fisio/screens/home_pac_screen.dart';
 import 'package:fisio/services/services.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/auth_bground_alt.dart';
@@ -112,7 +113,7 @@ class _LoginForm extends StatelessWidget {
                             loginForm.email, loginForm.password);
 
                         if (errorMessage == null) {
-                          Navigator.pushReplacementNamed(context, 'home_paciente');
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePaciente(idUser: authservice.idUser, idExpediente: authservice.idExpediente)));
                         } else {
                           // print(errorMessage);
                           NotificationsService.showSnackbar(errorMessage);

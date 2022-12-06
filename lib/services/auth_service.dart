@@ -13,7 +13,9 @@ class AuthService extends ChangeNotifier {
   final LocalStorage localStorage = new LocalStorage('idUser');
   final storage = FlutterSecureStorage();
   final db = FirebaseFirestore.instance;
-  final String idUser = '';
+  String idUser = '';
+  String idExpediente = '';
+  List expediente = [];
 
 // Si retornamos algo es un error, si no, todo bien
   Future<String?> createUser(String email, String password) async {
@@ -47,22 +49,30 @@ class AuthService extends ChangeNotifier {
       'password': password,
       'returnSecureToken': true
     };
-    /*final docRef = db.collection("pacientes").doc("F8SwOedTMEWH5eQ9AtqlKOIh2IC2");
-    docRef.get().then(
-      (DocumentSnapshot doc) {
-        final data = doc.data() as Map<String, dynamic>;
-        print(data);
-      },
-      onError: (e) => print("Error getting document: $e"),
-    );*/
 
     final url = Uri.https(
         _baseUrl, '/v1/accounts:signInWithPassword', {'key': _firebaseToken});
 
     final resp = await http.post(url, body: json.encode(authData));
     final Map<String, dynamic> decodeResp = json.decode(resp.body);
-    await localStorage.setItem('idUser', decodeResp['localId']);
+    idUser = decodeResp['localId'];
+    
+    final docRef = db.collection("pacientes").doc(idUser);
+    docRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data();
+        //idExpediente = doc['expedienteMedico'];
+        //expediente.add(idExpediente);
+        localStorage.setItem('idExpediente', doc['expedienteMedico']);
+      },
+      onError: (e) => print("Error getting document: $e"),
+    );
+    idExpediente = await localStorage.getItem('idExpediente');
+    //print('Expediente $expediente');
+    //print('id: $idExpediente');
 
+    localStorage.setItem('idUser', decodeResp['localId']);
+    //print(localStorage.getItem('idUser'));
     if (decodeResp.containsKey('idToken')) {
       //   // Token hay que guardarlo en un lugar seguro
       // return decodeResp['idToken'];
@@ -84,9 +94,7 @@ class AuthService extends ChangeNotifier {
     return await storage.read(key: 'token') ?? '';
   }
 
-  readIdUser() {
-    print(localStorage.getItem('idUser'));
-    final String id = localStorage.getItem('idUser')!; 
-    return id;
+  Future<String> readIdUser() async {
+    return await localStorage.getItem('idUser');
   }
 }

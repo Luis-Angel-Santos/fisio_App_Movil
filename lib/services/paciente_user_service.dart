@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fisio/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -10,6 +11,7 @@ class PacienteUserService extends ChangeNotifier {
   final String _baseUrl = 'https://fisioapp-73d11-default-rtdb.firebaseio.com/';
   final List<PacienteUser> pacientes_user = [];
   late PacienteUser selectedPaciente;
+  final db = FirebaseFirestore.instance; 
 
   final storage = new FlutterSecureStorage();
 
@@ -121,5 +123,18 @@ class PacienteUserService extends ChangeNotifier {
 
     //TODO:borrar esta linea de codigo
     return decodedData['secure_url'];
+  }
+
+  Future<String> obtenerExpediente(String id) async {
+    var idExpediente;
+    final docRef = db.collection("pacientes").doc(id); 
+    await docRef.snapshots().listen(
+          (event) =>  {
+            idExpediente = event.data()!['expedienteMedico'],
+          },
+          onError: (error) => print("Listen failed: $error"),
+    );
+    return idExpediente;
+
   }
 }
