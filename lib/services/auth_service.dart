@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_dart/firebase_dart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -52,41 +53,45 @@ class AuthService extends ChangeNotifier {
 
     final url = Uri.https(
         _baseUrl, '/v1/accounts:signInWithPassword', {'key': _firebaseToken});
+    try {
+      final resp = await http.post(url, body: json.encode(authData));
+      final Map<String, dynamic> decodeResp = json.decode(resp.body);
+      idUser = decodeResp['localId'];
+      final docRef = db.collection("pacientes").doc(decodeResp['localId']);
+      localStorage.setItem('idUser', decodeResp['localId']);
+      docRef.get().then(
+        (DocumentSnapshot doc) {
+          final data = doc.data();
+          //idExpediente = doc['expedienteMedico'];
+          //expediente.add(idExpediente);
+          localStorage.setItem('idExpediente', doc['expedienteMedico']);
+        },
+        onError: (e) => print("Error getting document: $e"),
+      );
+      idUser = await localStorage.getItem('idUser');
+      idExpediente = await localStorage.getItem('idExpediente');
+      //print('Expediente $expediente');
+      //print('id: $idExpediente');
 
-    final resp = await http.post(url, body: json.encode(authData));
-    final Map<String, dynamic> decodeResp = json.decode(resp.body);
-    idUser = decodeResp['localId'];
-    
-    final docRef = db.collection("pacientes").doc(idUser);
-    docRef.get().then(
-      (DocumentSnapshot doc) {
-        final data = doc.data();
-        //idExpediente = doc['expedienteMedico'];
-        //expediente.add(idExpediente);
-        localStorage.setItem('idExpediente', doc['expedienteMedico']);
-      },
-      onError: (e) => print("Error getting document: $e"),
-    );
-    idExpediente = await localStorage.getItem('idExpediente');
-    //print('Expediente $expediente');
-    //print('id: $idExpediente');
-
-    localStorage.setItem('idUser', decodeResp['localId']);
-    //print(localStorage.getItem('idUser'));
-    if (decodeResp.containsKey('idToken')) {
-      //   // Token hay que guardarlo en un lugar seguro
-      // return decodeResp['idToken'];
-      await storage.write(key: 'token', value: decodeResp['idToken']);
-      return null;
-    } else {
-      return decodeResp['error']['message'];
+      //print(localStorage.getItem('idUser'));
+      if (decodeResp.containsKey('idToken')) {
+        //   // Token hay que guardarlo en un lugar seguro
+        // return decodeResp['idToken'];
+        //await storage.write(key: 'token', value: decodeResp['idToken']);
+        return null;
+      } else {
+        return decodeResp['error']['message'];
+      }
+    } catch (e) {
+      return 'Parece que hay un problema con la conexión. Por favor intente de nuevo';
     }
+    
   }
 
   Future logout() async {
     await storage.delete(key: 'token');
+    await localStorage.deleteItem('idExpediente');
     await localStorage.deleteItem('idUser');
-
     return;
   }
 

@@ -113,11 +113,12 @@ class _LoginForm extends StatelessWidget {
                             loginForm.email, loginForm.password);
 
                         if (errorMessage == null) {
+                          loginForm.isLoading = false;
                           Navigator.push(context, MaterialPageRoute(builder: (context) => HomePaciente(idUser: authservice.idUser, idExpediente: authservice.idExpediente)));
                         } else {
                           // print(errorMessage);
-                          NotificationsService.showSnackbar(errorMessage);
                           loginForm.isLoading = false;
+                          NotificationsService.showSnackbar(errorMessage);
                         }
                       })
           ],

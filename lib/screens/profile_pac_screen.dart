@@ -1,22 +1,62 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fisio/services/paciente_user_service.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/burguer_menu.dart';
 import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
+import '../services/auth_service.dart';
+import '../services/notifications_service.dart';
+import 'home_pac_screen.dart';
 
 class ProfilePaciente extends StatelessWidget {
   final String idUser;
   final String idExpediente;
   ProfilePaciente({required this.idUser, required this.idExpediente});
+  final db = FirebaseFirestore.instance;
+  var data;
 
   @override
   Widget build(BuildContext context) {
+  
+  CollectionReference user = FirebaseFirestore.instance.collection('pacientes');
   return Scaffold(
     appBar: AppBar(
-        title: Text('Mi Perfil'),
+        title: Text('Mi perfil'),
       ),
       drawer: BurguerMenu(idUser: idUser, idExpediente: idExpediente),
-      body: SingleChildScrollView(
+      body: FutureBuilder<DocumentSnapshot>(
+      future: user.doc(idUser).get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
+        }
+        if (snapshot.hasData && !snapshot.data!.exists) {
+          return Text("Document does not exist");
+        }
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 20),
+                _PacienteForm(data: data, id: idUser, idExpediente: idExpediente,),
+                SizedBox(height: 100),
+              ],
+            ),
+          );
+          }
+          return Text("loading");
+        },
+      ));
+      
+      
+      
+      
+      /*SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(height: 20),
@@ -29,14 +69,27 @@ class ProfilePaciente extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save_outlined),
         onPressed: () {
-          //TODO Guardar datos
+          //final authservice = Provider.of<AuthService>(context, listen: false);
+          
         },
       ),
-    );
+    );*/
   }
 }
 
 class _PacienteForm extends StatelessWidget {
+  final data;
+  final id;
+  final idExpediente;
+  _PacienteForm({required this.data, required this.id, required this.idExpediente});
+
+  TextEditingController name = new TextEditingController();
+  TextEditingController apellidos = new TextEditingController();
+  TextEditingController telefono = new TextEditingController();
+  TextEditingController correo = new TextEditingController();
+
+  GlobalKey<FormState> keyForm = new GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -46,115 +99,52 @@ class _PacienteForm extends StatelessWidget {
         width: double.infinity,
         decoration: _buildBoxDecoration(),
         child: Form(
+          key: keyForm,
           child: Column(
             children: [
               SizedBox(
                 height: 30,
               ),
               CircleAvatar(
-                  //backgroundImage: AssetImage('assets/Logo.png'),
-                 radius: 80,
-                  //TODO: Seleccionar foto de galeria o cámara
+                  child: Image(
+                  image: NetworkImage(data['foto']),
+                ),
+                  radius: 80,
                 ),
               SizedBox(
                 height: 50,
               ),
               TextFormField(
-                initialValue: '',
+                controller: name,
                 onChanged: (value) => 'Nombre',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'El nombre es obligatorio';
                 },
                 decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Nombre del Paciente:', hintText: 'Nombre'),
+                    labelText: data['nombre'], hintText: 'Nombre'),
               ),
               SizedBox(
                 height: 30,
               ),
               TextFormField(
-                initialValue: '',
+                controller: apellidos,
+                //initialValue: data['apellidos'],
                 onChanged: (value) => 'Apellidos',
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'Los apellidos son obligatorios';
                 },
                 decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Apellidos:', hintText: 'Apellidos'),
+                    labelText: data['apellidos'], hintText: 'Apellidos'),
               ),
               SizedBox(
                 height: 30,
               ),
+              
               TextFormField(
-                initialValue: '',
-                onChanged: (value) => 'Paciente edad',
-                validator: (value) {
-                  if (value == null || value.length < 1)
-                    return 'La edad es obligatoria';
-                },
-                decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Edad:', hintText: 'Edad'),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              TextFormField(
-                initialValue: '',
-                onChanged: (value) => 'Paciente sexo',
-                validator: (value) {
-                  if (value == null || value.length < 1)
-                    return 'El sexo  es obligatorio';
-                },
-                decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Sexo:', hintText: 'Masculino o Femenino'),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              TextFormField(
-                initialValue: '',
-                onChanged: (value) => 'Paciente ocupacion',
-                validator: (value) {
-                  if (value == null || value.length < 1)
-                    return 'La ocupacion es obligatoria';
-                },
-                decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Ocupacion:', hintText: 'Ejemplo: Estudiante'),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              TextFormField(
-                initialValue: '',
-                onChanged: (value) => 'Paciente EstadoCivil',
-                validator: (value) {
-                  if (value == null || value.length < 1)
-                    return 'El estado civil es obligatorio';
-                },
-                decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Estado Civil:', hintText: 'Ejemplo: Soltero'),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                child: TextFormField(
-                  initialValue: '',
-                  onChanged: (value) => 'Paciente Domicilio',
-                  validator: (value) {
-                    if (value == null || value.length < 1)
-                      return 'El domicilio es obligatorio';
-                  },
-                  decoration: InputDecorations.authInputDecoration(
-                      labelText: 'Domicilio:',
-                      hintText: 'Calle, numero, colonia, estado y municipio'),
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              TextFormField(
-                initialValue: '',
+                controller: telefono,
+                //initialValue: data['telefono'],
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
                       RegExp(r'^(\d+)?\.?\d{0,2}'))
@@ -168,17 +158,19 @@ class _PacienteForm extends StatelessWidget {
                 },
                 keyboardType: TextInputType.number,
                 decoration: InputDecorations.authInputDecoration(
-                    labelText: 'Número de teléfono:', hintText: 'Tel:'),
+                    labelText: data['telefono'], hintText: 'Tel:'),
               ),
               SizedBox(
                 height: 40,
               ),
               TextFormField(
+                controller: correo,
+                //initialValue: data['correo'],
                  autocorrect: false,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecorations.authInputDecoration(
                       hintText: 'yourname@example.com',
-                      labelText: 'Correo electrónico:'),
+                      labelText: data['correo']),
                   onChanged: (value) => 'Correo',
                   validator: (value) {
                     String pattern =
@@ -193,22 +185,23 @@ class _PacienteForm extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              TextFormField(
-                 autocorrect: false,
-                  obscureText: true,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecorations.authInputDecoration(
-                      hintText: '******',
-                      labelText: 'Contraseña:'),
-                  onChanged: (value) => 'Password',
-                  validator: (value) {
-                    return (value != null && value.length >= 6)
-                        ? null
-                        : 'La contraseña debe de ser de 6 caracteres';
-                  },
-              ),
-              SizedBox(
-                height: 40,
+              FloatingActionButton(
+              child: Icon(Icons.save_outlined),
+              onPressed: () {
+                final authservice = Provider.of<PacienteUserService>(context, listen: false);
+                try {
+                  authservice.updateUser(id, name.text, apellidos.text, telefono.text, correo.text);
+                  NotificationsService.showSnackbar('Datos Actualizados');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePaciente(idUser: id, idExpediente: idExpediente)));
+                } catch (e) {
+                  NotificationsService.showSnackbar('Oops hubo un error: $e');
+                }
+                
+              },
+              
+            ),
+            SizedBox(
+                height: 30,
               ),
             ],
           ),
