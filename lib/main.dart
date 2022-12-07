@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           'paciente': (_) => PacienteScreen(),
           'login_paciente': (_) => LoginScreenPacientes(),
           'perfil_paciente': (_) => ProfilePaciente(idUser: '', idExpediente: '',),
-          'home_paciente': (_) => HomePaciente(idUser: '', idExpediente: '',),
+          'home_paciente': (_) => HomePaciente(idUser: '', idExpediente: ''),
           'receta_detail': (_) => RecetaDetail(idUser: '', idExpediente: '', descripcion: '', fecha: '', nombreMedico: '', nombrePaciente: '', tratamiento: '',),
           'checking': (_) => CheckAuthScreen(),
         },

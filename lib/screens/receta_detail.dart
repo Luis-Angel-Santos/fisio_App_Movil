@@ -9,6 +9,7 @@ class RecetaDetail extends StatelessWidget {
   final String nombreMedico;
   final String nombrePaciente;
   final String tratamiento;
+
   RecetaDetail({required this.idUser, required this.idExpediente, required this.descripcion, required this.fecha, required this.nombreMedico, required this.nombrePaciente, required this.tratamiento});
   @override
   Widget build(BuildContext context) {
@@ -18,57 +19,79 @@ class RecetaDetail extends StatelessWidget {
       ),
       drawer: BurguerMenu(idUser: idUser, idExpediente: idExpediente,),
       body: SingleChildScrollView(
-          child: Column(
+          child:  Column(
             children: [
               SizedBox(
-                height: 20,
+                height: 50,
               ),
-               Positioned(
-                  top: 60,
-                  left: 20,
-                  child: IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: Icon(
-                      Icons.arrow_back_sharp,
-                      size: 40,
-                      color: Colors.indigo,
-                    ),
-                  ),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  width: double.infinity,
+                  decoration: _buildBoxDecoration(),
+                  child:  Column(
+                    children: [
+                      SizedBox(
+                        height: 30,
+                      ),
+                      FloatingActionButton(
+                      child: Icon(Icons.arrow_back_sharp),
+                      onPressed: () => Navigator.of(context).pop(),                      
+                      ),   
+                      SizedBox(
+                        height: 30,
+                      ),             
+                      Text(
+                        'Estimado $nombrePaciente, el Fisioterapeuta $nombreMedico te ha asignado lo siguiente:',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      RichText(text: TextSpan(children: [
+                        TextSpan(text: 'Receta asignada el ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+                        TextSpan(text: '$fecha', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+                      ])),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      RichText(text: TextSpan(children: [
+                        TextSpan(text: 'Descripción de la receta: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+                        TextSpan(text: '$descripcion', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+                      ])),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      RichText(text: TextSpan(children: [
+                        TextSpan(text: 'Tratamiento recomendado: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+                        TextSpan(text: '$tratamiento', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+                      ])),
+                      SizedBox(
+                        height: 30,
+                      ),
+                    ],
+                  )
+                )
               ),
-              SizedBox(
-                height: 40,
-              ),
-              Text(
-                  'Estimado $nombrePaciente, el Fisioterapeuta $nombreMedico te ha asignado lo siguiente',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                  'Receta asignada el $fecha',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                  'Descripcion de la receta: $descripcion',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                  'Tratamiendot recomendado: $tratamiento',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-              ),
-
             ]
           )
-       
-   
       )
     );
   }
+
+  BoxDecoration _buildBoxDecoration() => BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(25),
+            bottomLeft: Radius.circular(25),
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+          ),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                offset: Offset(0, 5),
+                blurRadius: 5)
+          ]);
 }

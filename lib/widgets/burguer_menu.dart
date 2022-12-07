@@ -21,7 +21,7 @@ class BurguerMenu extends StatelessWidget {
             Navigator.push(context, MaterialPageRoute(builder: (context) =>ProfilePaciente(idUser: idUser, idExpediente: idExpediente,)))
           }),
           _buildDrawerItem(icon: Icons.medical_information, text: 'Mis Recetas', onTap: () => {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePaciente(idUser: idUser, idExpediente: idExpediente)))
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePaciente(idUser: idUser, idExpediente: idExpediente,)))
           }),
           _buildDrawerItem(icon: Icons.settings, text: 'Ajustes', onTap: () => {
             Navigator.push(context, MaterialPageRoute(builder: (context) =>ProfilePaciente(idUser: idUser, idExpediente: idExpediente,))) //TODO: Pantalla ajustes

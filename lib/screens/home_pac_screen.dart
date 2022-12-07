@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 class HomePaciente extends StatelessWidget {
   final db = FirebaseFirestore.instance; 
   final String idUser;
-  final String idExpediente;  
+  final String idExpediente;
   HomePaciente({required this.idUser, required this.idExpediente});
   Stream<QuerySnapshot>? _recetasStream;
 
@@ -23,7 +23,7 @@ class HomePaciente extends StatelessWidget {
                               appBar: AppBar(
                                 title: Text('Mis Recetas'),
                               ),
-                              drawer: BurguerMenu(idExpediente:idExpediente, idUser: idUser,),
+                              drawer: BurguerMenu(idExpediente:idExpediente, idUser: idUser),
                               body: StreamBuilder<QuerySnapshot>(
                                 stream: _recetasStream,
                                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -45,58 +45,69 @@ class HomePaciente extends StatelessWidget {
               SizedBox(
                 height: 60,
               ),
+              Text('Bienvenido ' + data['nombrePaciente'] + '!', textAlign: TextAlign.left , style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
+                  ),
               SizedBox(
-                height: 50,
+                height: 40,
               ),
-              DataTable(  
-              columns: [  
-                DataColumn(label: Text(  
-                    '#',  
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
-                )),  
-                DataColumn(label: Text(  
-                    'Receta/Tratamiento',  
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
-                )),  
-                DataColumn(label: Text(  
-                    'Días',  
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
-                )),  
-                DataColumn(label: Text(  
-                    'Fecha',  
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
-                )),  
-              ],  
-              rows: [  
-                DataRow(cells: [  
-                  DataCell(
-                    GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => RecetaDetail(idUser: idUser, idExpediente: idExpediente, descripcion: data['descripcion'], fecha: data['fecha'], nombreMedico: data['nombreMedico'], nombrePaciente: data['nombrePaciente'], tratamiento: data['tratamiento'],)));
-                      },
-                      child: Text('00', style: TextStyle(fontSize: 15.0))
-                  )),
-                  DataCell(GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => RecetaDetail(idUser: idUser, idExpediente: idExpediente, descripcion: data['descripcion'], fecha: data['fecha'], nombreMedico: data['nombreMedico'], nombrePaciente: data['nombrePaciente'], tratamiento: data['tratamiento'],)));
-                      },
-                      child: Text(data['tratamiento'], style: TextStyle(fontSize: 15.0))
-                  )),  
-                 DataCell(GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => RecetaDetail(idUser: idUser, idExpediente: idExpediente, descripcion: data['descripcion'], fecha: data['fecha'], nombreMedico: data['nombreMedico'], nombrePaciente: data['nombrePaciente'], tratamiento: data['tratamiento'],)));
-                      },
-                      child: Text('...', style: TextStyle(fontSize: 15.0))
-                  )),  
-                  DataCell(GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => RecetaDetail(idUser: idUser, idExpediente: idExpediente, descripcion: data['descripcion'], fecha: data['fecha'], nombreMedico: data['nombreMedico'], nombrePaciente: data['nombrePaciente'], tratamiento: data['tratamiento'],)));
-                      },
-                      child: Text(data['fecha'], style: TextStyle(fontSize: 15.0))
-                  )),  
-                ]),  
-              ],  
-            ), 
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  width: double.infinity,
+                  decoration: _buildBoxDecoration(),
+                  child:  
+                  DataTable(  
+                      columns: [  
+                        DataColumn(label: Text(  
+                            '#',  
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
+                        )),  
+                        DataColumn(label: Text(  
+                            'Receta/Tratamiento',  
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
+                        )),  
+                        DataColumn(label: Text(  
+                            'Días',  
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
+                        )),  
+                        DataColumn(label: Text(  
+                            'Fecha',  
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
+                        )),  
+                      ],  
+                      rows: [  
+                        DataRow(cells: [  
+                          DataCell(
+                            GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => RecetaDetail(idUser: idUser, idExpediente: idExpediente, descripcion: data['descripcion'], fecha: data['fecha'], nombreMedico: data['nombreMedico'], nombrePaciente: data['nombrePaciente'], tratamiento: data['tratamiento'],)));
+                              },
+                              child: Text('00', style: TextStyle(fontSize: 15.0))
+                          )),
+                          DataCell(GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => RecetaDetail(idUser: idUser, idExpediente: idExpediente, descripcion: data['descripcion'], fecha: data['fecha'], nombreMedico: data['nombreMedico'], nombrePaciente: data['nombrePaciente'], tratamiento: data['tratamiento'],)));
+                              },
+                              child: Text(data['tratamiento'], style: TextStyle(fontSize: 15.0))
+                          )),  
+                        DataCell(GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => RecetaDetail(idUser: idUser, idExpediente: idExpediente, descripcion: data['descripcion'], fecha: data['fecha'], nombreMedico: data['nombreMedico'], nombrePaciente: data['nombrePaciente'], tratamiento: data['tratamiento'],)));
+                              },
+                              child: Text('...', style: TextStyle(fontSize: 15.0))
+                          )),  
+                          DataCell(GestureDetector(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => RecetaDetail(idUser: idUser, idExpediente: idExpediente, descripcion: data['descripcion'], fecha: data['fecha'], nombreMedico: data['nombreMedico'], nombrePaciente: data['nombrePaciente'], tratamiento: data['tratamiento'],)));
+                              },
+                              child: Text(data['fecha'], style: TextStyle(fontSize: 15.0))
+                          )),  
+                        ]),  
+                      ],  
+                    ), 
+                  )
+              ),
             ]
           );
                                         })
@@ -107,6 +118,21 @@ class HomePaciente extends StatelessWidget {
                               )
                           );
                         }
+
+                        BoxDecoration _buildBoxDecoration() => BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(25),
+            bottomLeft: Radius.circular(25),
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+          ),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                offset: Offset(0, 5),
+                blurRadius: 5)
+          ]); 
   
   }
 
