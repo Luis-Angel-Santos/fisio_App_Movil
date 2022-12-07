@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fisio/screens/loading_screen.dart';
 import 'package:fisio/services/paciente_user_service.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/burguer_menu.dart';
@@ -49,7 +50,7 @@ class ProfilePaciente extends StatelessWidget {
             ),
           );
           }
-          return Text("loading");
+          return LoadingScreen();
         },
       ));
       
@@ -106,9 +107,7 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               CircleAvatar(
-                  child: Image(
-                  image: NetworkImage(data['foto']),
-                ),
+                backgroundImage:  AssetImage('assets/user.png'),
                   radius: 80,
                 ),
               SizedBox(

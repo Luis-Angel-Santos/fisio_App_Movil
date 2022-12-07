@@ -114,7 +114,7 @@ class _LoginForm extends StatelessWidget {
 
                         if (errorMessage == null) {
                           loginForm.isLoading = false;
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePaciente(idUser: authservice.idUser, idExpediente: authservice.idExpediente)));
+                          await Navigator.push(context, MaterialPageRoute(builder: (context) => HomePaciente(idUser: authservice.idUser, idExpediente: authservice.idExpediente)));
                         } else {
                           // print(errorMessage);
                           loginForm.isLoading = false;

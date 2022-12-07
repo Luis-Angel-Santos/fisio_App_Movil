@@ -43,7 +43,7 @@ class RecetaDetail extends StatelessWidget {
                         height: 30,
                       ),             
                       Text(
-                        'Estimado $nombrePaciente, el Fisioterapeuta $nombreMedico te ha asignado lo siguiente:',
+                        'Estimad@ $nombrePaciente, el/la Fisioterapeuta $nombreMedico te ha asignado lo siguiente:',
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
                       ),
                       SizedBox(

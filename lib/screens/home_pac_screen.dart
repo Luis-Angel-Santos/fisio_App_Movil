@@ -8,6 +8,8 @@ import 'package:fisio/services/pacientes_service.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:provider/provider.dart';
 
+import 'loading_screen.dart';
+
 // ignore: must_be_immutable
 class HomePaciente extends StatelessWidget {
   final db = FirebaseFirestore.instance; 
@@ -28,11 +30,11 @@ class HomePaciente extends StatelessWidget {
                                 stream: _recetasStream,
                                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                                   if (snapshot.hasError) {
-                                    return const Text('Something went wrong');
+                                    return Text('Algo salio mal $snapshot.hasError');
                                   }
 
                                   if (snapshot.connectionState == ConnectionState.waiting) {
-                                    return const Text("Loading");
+                                    return LoadingScreen();
                                   }
 
                                   return ListView(

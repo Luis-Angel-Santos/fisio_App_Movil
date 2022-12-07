@@ -51,14 +51,14 @@ class AuthService extends ChangeNotifier {
       'returnSecureToken': true
     };
 
-    final url = Uri.https(
+    final url = await Uri.https(
         _baseUrl, '/v1/accounts:signInWithPassword', {'key': _firebaseToken});
+    final resp = await http.post(url, body: json.encode(authData));
+    final Map<String, dynamic> decodeResp = await json.decode(resp.body);
+    localStorage.setItem('idUser', decodeResp['localId']);
     try {
-      final resp = await http.post(url, body: json.encode(authData));
-      final Map<String, dynamic> decodeResp = json.decode(resp.body);
       idUser = decodeResp['localId'];
-      final docRef = db.collection("pacientes").doc(decodeResp['localId']);
-      localStorage.setItem('idUser', decodeResp['localId']);
+      final docRef = await db.collection("pacientes").doc(idUser);
       docRef.get().then(
         (DocumentSnapshot doc) {
           final data = doc.data();
@@ -70,13 +70,8 @@ class AuthService extends ChangeNotifier {
       );
       idUser = await localStorage.getItem('idUser');
       idExpediente = await localStorage.getItem('idExpediente');
-      //print('Expediente $expediente');
-      //print('id: $idExpediente');
-
-      //print(localStorage.getItem('idUser'));
       if (decodeResp.containsKey('idToken')) {
         //   // Token hay que guardarlo en un lugar seguro
-        // return decodeResp['idToken'];
         //await storage.write(key: 'token', value: decodeResp['idToken']);
         return null;
       } else {
