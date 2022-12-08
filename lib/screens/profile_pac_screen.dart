@@ -1,4 +1,7 @@
+import 'dart:io';
+import 'package:path/path.dart' as path;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fisio/screens/loading_screen.dart';
 import 'package:fisio/services/paciente_user_service.dart';
 import 'package:fisio/ui/input_decorations.dart';
@@ -6,8 +9,9 @@ import 'package:fisio/widgets/burguer_menu.dart';
 import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
+import 'package:permission_handler/permission_handler.dart';
 import '../services/auth_service.dart';
 import '../services/notifications_service.dart';
 import 'home_pac_screen.dart';
@@ -18,6 +22,8 @@ class ProfilePaciente extends StatelessWidget {
   ProfilePaciente({required this.idUser, required this.idExpediente});
   final db = FirebaseFirestore.instance;
   var data;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,28 +59,6 @@ class ProfilePaciente extends StatelessWidget {
           return LoadingScreen();
         },
       ));
-      
-      
-      
-      
-      /*SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 20),
-            _PacienteForm(),
-            SizedBox(height: 100),
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.save_outlined),
-        onPressed: () {
-          //final authservice = Provider.of<AuthService>(context, listen: false);
-          
-        },
-      ),
-    );*/
   }
 }
 
@@ -93,6 +77,7 @@ class _PacienteForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Container(
@@ -107,8 +92,8 @@ class _PacienteForm extends StatelessWidget {
                 height: 30,
               ),
               CircleAvatar(
-                backgroundImage:  AssetImage('assets/user.png'),
-                  radius: 80,
+                  backgroundImage: AssetImage('assets/user.png'),
+                  radius: 50,
                 ),
               SizedBox(
                 height: 50,
@@ -224,3 +209,4 @@ class _PacienteForm extends StatelessWidget {
                 blurRadius: 5)
           ]);
 }
+
