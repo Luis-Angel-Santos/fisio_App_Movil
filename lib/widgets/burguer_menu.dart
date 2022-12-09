@@ -1,3 +1,4 @@
+import 'package:fisio/screens/ayuda.dart';
 import 'package:flutter/material.dart';
 import 'package:fisio/screens/screens.dart';
 import 'package:fisio/services/auth_service.dart';
@@ -21,10 +22,10 @@ class BurguerMenu extends StatelessWidget {
             Navigator.push(context, MaterialPageRoute(builder: (context) =>ProfilePaciente(idUser: idUser, idExpediente: idExpediente,)))
           }),
           _buildDrawerItem(icon: Icons.medical_information, text: 'Mis Recetas', onTap: () => {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePaciente(idUser: idUser, idExpediente: idExpediente)))
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePaciente(idUser: idUser, idExpediente: idExpediente,)))
           }),
-          _buildDrawerItem(icon: Icons.settings, text: 'Ajustes', onTap: () => {
-            Navigator.push(context, MaterialPageRoute(builder: (context) =>ProfilePaciente(idUser: idUser, idExpediente: idExpediente,))) //TODO: Pantalla ajustes
+          _buildDrawerItem(icon: Icons.settings, text: 'Más opciones', onTap: () => {
+            Navigator.push(context, MaterialPageRoute(builder: (context) =>Ayuda(idUser: idUser, idExpediente: idExpediente,)))
           }),
           Divider(),
           _buildDrawerItem(icon: Icons.exit_to_app, text: 'Cerrar sesión', onTap: ()async => {
@@ -33,7 +34,7 @@ class BurguerMenu extends StatelessWidget {
           }),
           Divider(), //<-- espacio
           ListTile(
-            title: Text('Versión de la app 1.0.0'),
+            title: Text('Versión de la app 2.1.1'),
             onTap: () {},
           ),
         ],
@@ -56,7 +57,7 @@ class BurguerMenu extends StatelessWidget {
            left: 20.0,
            child: Text("Fisio App",
                style: TextStyle(
-                   color: Colors.white,
+                   color: Colors.black,
                    fontSize: 18.0,
                    fontWeight: FontWeight.w500))),
      ]));

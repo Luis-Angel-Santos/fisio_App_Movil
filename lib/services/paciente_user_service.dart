@@ -127,6 +127,7 @@ class PacienteUserService extends ChangeNotifier {
 
   Future<String> obtenerExpediente(String id) async {
     var idExpediente;
+
     final docRef = db.collection("pacientes").doc(id); 
     await docRef.snapshots().listen(
           (event) =>  {
@@ -137,4 +138,18 @@ class PacienteUserService extends ChangeNotifier {
     return idExpediente;
 
   }
-}
+
+  Future<void> updateUser(String id, String nombre, String apellidos, String telefono, String correo) async {
+    CollectionReference user = db.collection('pacientes');
+    return user
+      .doc(id)
+      .update({
+        'nombre': nombre,
+        'apellidos': apellidos,
+        'telefono': telefono,
+        'correo': correo
+        })
+      .then((value) => print("User Updated"))
+      .catchError((error) => print("Failed to update user: $error"));
+    }
+  }

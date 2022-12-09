@@ -1,16 +1,11 @@
-# fisio
+# FISIO
 
-A new Flutter project.
+Fisio es un equipo de trabajo, orientado en desarrollar y crear nuevas soluciones a problemas que normalmente nos encontramos. En Fisio, nos enfocamos en crear, innovar y explorar nuevos caminos que ayuden a la sociedad
 
-## Getting Started
+## Desarrollado por
 
-This project is a starting point for a Flutter application.
+- Sherlin Toriz Perez
+- Emanuel Rangel Luna
+- Jonathan Perez Ordoñez
+- Luus Angel Santos Islas
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
