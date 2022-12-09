@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fisio/providers/login_form_provider.dart';
 import 'package:fisio/screens/home_pac_screen.dart';
 import 'package:fisio/services/services.dart';
@@ -21,7 +23,7 @@ class LoginScreenPacientes extends StatelessWidget {
               children: [
                 SizedBox(height: 10),
                 Text(
-                  'Iniciar Sesión',
+                  'Inicia Sesión',
                   style: Theme.of(context).textTheme.headline4,
                 ),
                 SizedBox(height: 20),
@@ -110,8 +112,7 @@ class _LoginForm extends StatelessWidget {
 
                          //Validación login correcto
                         final String? errorMessage = await authservice.login(
-                            loginForm.email, loginForm.password);
-
+                            loginForm.email, loginForm.password);                    
                         if (errorMessage == null) {
                           loginForm.isLoading = false;
                           await Navigator.push(context, MaterialPageRoute(builder: (context) => HomePaciente(idUser: authservice.idUser, idExpediente: authservice.idExpediente)));
@@ -120,7 +121,11 @@ class _LoginForm extends StatelessWidget {
                           loginForm.isLoading = false;
                           NotificationsService.showSnackbar(errorMessage);
                         }
-                      })
+                      }),
+              SizedBox(
+                height: 30,
+              ),
+              Text('Recuerda que tu contraseña es tu número celular proporcionado al medico'),
           ],
         ),
       ),

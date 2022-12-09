@@ -1,18 +1,14 @@
-import 'dart:io';
-import 'package:path/path.dart' as path;
+import 'dart:html';
+import 'dart:ui' as ui;
+import 'package:universal_html/html.dart' as html;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fisio/screens/loading_screen.dart';
 import 'package:fisio/services/paciente_user_service.dart';
 import 'package:fisio/ui/input_decorations.dart';
 import 'package:fisio/widgets/burguer_menu.dart';
-import 'package:fisio/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import '../services/auth_service.dart';
 import '../services/notifications_service.dart';
 import 'home_pac_screen.dart';
 
@@ -74,10 +70,29 @@ class _PacienteForm extends StatelessWidget {
   TextEditingController correo = new TextEditingController();
 
   GlobalKey<FormState> keyForm = new GlobalKey();
+  
 
   @override
   Widget build(BuildContext context) {
-    
+
+     // ignore:undefined_prefixed_name
+    ui.platformViewRegistry.registerViewFactory(
+        'noFoto',
+        (int viewId) => ImageElement()
+          ..src = 'assets/user.png'
+          ..style.border = 'none');
+     // ignore:undefined_prefixed_name
+    ui.platformViewRegistry.registerViewFactory(
+        'foto',
+        (int viewId) => ImageElement()
+          ..src = data['foto']
+          ..style.border = 'none');
+    var foto;
+    if (data['foto'] == '' || data['foto'] == null) {
+      foto = 'noFoto';
+    }else{
+      foto = 'foto';
+    }
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Container(
@@ -91,12 +106,13 @@ class _PacienteForm extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              CircleAvatar(
-                  backgroundImage: AssetImage('assets/user.png'),
-                  radius: 50,
-                ),
+              Container(
+                child:  HtmlElementView(viewType: foto),
+                height: 200,
+                width: 200,
+              ),
               SizedBox(
-                height: 50,
+                height: 30,
               ),
               TextFormField(
                 controller: name,

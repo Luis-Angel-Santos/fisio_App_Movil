@@ -78,7 +78,7 @@ class AuthService extends ChangeNotifier {
         return decodeResp['error']['message'];
       }
     } catch (e) {
-      return 'Parece que hay un problema con la conexión. Por favor intente de nuevo';
+      return 'Opps parece que hay un problema. Por favor intente de nuevo';
     }
     
   }

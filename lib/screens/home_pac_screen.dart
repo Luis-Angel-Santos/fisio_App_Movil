@@ -42,15 +42,12 @@ class HomePaciente extends StatelessWidget {
                                         .map((DocumentSnapshot document) {
                                           Map<String, dynamic> data =
                                               document.data()! as Map<String, dynamic>;
+                                          var id = 1;
+                                          
                                           return Column(
             children: [
               SizedBox(
                 height: 60,
-              ),
-              Text('Bienvenido ' + data['nombrePaciente'] + '!', textAlign: TextAlign.left , style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
-                  ),
-              SizedBox(
-                height: 40,
               ),
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
@@ -62,42 +59,21 @@ class HomePaciente extends StatelessWidget {
                   DataTable(  
                       columns: [  
                         DataColumn(label: Text(  
-                            '#',  
+                            'Paciente',  
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
-                        )),  
-                        DataColumn(label: Text(  
-                            'Receta/Tratamiento',  
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
-                        )),  
-                        DataColumn(label: Text(  
-                            'Días',  
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
-                        )),  
+                        )),
                         DataColumn(label: Text(  
                             'Fecha',  
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)  
                         )),  
                       ],  
                       rows: [  
-                        DataRow(cells: [  
-                          DataCell(
-                            GestureDetector(
-                            onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => RecetaDetail(idUser: idUser, idExpediente: idExpediente, descripcion: data['descripcion'], fecha: data['fecha'], nombreMedico: data['nombreMedico'], nombrePaciente: data['nombrePaciente'], tratamiento: data['tratamiento'],)));
-                              },
-                              child: Text('00', style: TextStyle(fontSize: 15.0))
-                          )),
+                        DataRow(cells: [
                           DataCell(GestureDetector(
                             onTap: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => RecetaDetail(idUser: idUser, idExpediente: idExpediente, descripcion: data['descripcion'], fecha: data['fecha'], nombreMedico: data['nombreMedico'], nombrePaciente: data['nombrePaciente'], tratamiento: data['tratamiento'],)));
                               },
-                              child: Text(data['tratamiento'], style: TextStyle(fontSize: 15.0))
-                          )),  
-                        DataCell(GestureDetector(
-                            onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => RecetaDetail(idUser: idUser, idExpediente: idExpediente, descripcion: data['descripcion'], fecha: data['fecha'], nombreMedico: data['nombreMedico'], nombrePaciente: data['nombrePaciente'], tratamiento: data['tratamiento'],)));
-                              },
-                              child: Text('...', style: TextStyle(fontSize: 15.0))
+                              child: Text(data['nombrePaciente'], style: TextStyle(fontSize: 15.0))
                           )),  
                           DataCell(GestureDetector(
                             onTap: () {

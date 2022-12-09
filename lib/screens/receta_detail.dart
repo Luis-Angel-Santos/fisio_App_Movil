@@ -50,22 +50,22 @@ class RecetaDetail extends StatelessWidget {
                         height: 30,
                       ),
                       RichText(text: TextSpan(children: [
-                        TextSpan(text: 'Receta asignada el ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
-                        TextSpan(text: '$fecha', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+                        TextSpan(text: 'Receta asignada el ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.black)),
+                        TextSpan(text: '$fecha', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black))
                       ])),
                       SizedBox(
                         height: 30,
                       ),
                       RichText(text: TextSpan(children: [
-                        TextSpan(text: 'Descripción de la receta: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
-                        TextSpan(text: '$descripcion', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+                        TextSpan(text: 'Descripción de la receta: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.black)),
+                        TextSpan(text: '$descripcion', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black))
                       ])),
                       SizedBox(
                         height: 30,
                       ),
                       RichText(text: TextSpan(children: [
-                        TextSpan(text: 'Tratamiento recomendado: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
-                        TextSpan(text: '$tratamiento', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+                        TextSpan(text: 'Tratamiento recomendado: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.black)),
+                        TextSpan(text: '$tratamiento', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black))
                       ])),
                       SizedBox(
                         height: 30,

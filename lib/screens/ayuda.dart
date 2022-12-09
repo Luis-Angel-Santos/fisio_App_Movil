@@ -116,15 +116,15 @@ class Ayuda extends StatelessWidget {
               Text(
                   'C. Francisco Sabaria 1008 Centro. 90300 Apizaco, tlax',
                   textAlign: TextAlign.justify,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                  style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.normal),
               ),
               SizedBox(
                 height: 10,
               ),
               RichText(text: TextSpan(children: [
-                        TextSpan(text: '© 2022 ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
-                        TextSpan(text: 'JESLA ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                        TextSpan(text: '- Todos los Derechos Reservados.', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)),
+                        TextSpan(text: '© 2022 ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.black)),
+                        TextSpan(text: 'JESLA ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black)),
+                        TextSpan(text: '- Todos los Derechos Reservados.', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.black)),
                       ])),
               SizedBox(
                 height: 20,
